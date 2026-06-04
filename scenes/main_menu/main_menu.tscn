@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://cqu1ufwdsb3vm"]
 
 [ext_resource type="Script" uid="uid://ciok1rj3o7c77" path="res://script/main/main_menu.gd" id="1_0ebjn"]
+[ext_resource type="Texture2D" uid="uid://b06awk4iwo04" path="res://resource/background/StartGame.png" id="2_0ebjn"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_fsom3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ebjn"]
+atlas = ExtResource("2_0ebjn")
+region = Rect2(905.01135, -0.061676025, 1139.6401, 792.38293)
 
 [node name="MainMenu" type="Control" unique_id=960184055]
 layout_mode = 3
@@ -13,46 +16,60 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0ebjn")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1721059156]
-position = Vector2(580.00006, 340.5)
-scale = Vector2(1262.0001, 737.00006)
-texture = SubResource("CanvasTexture_fsom3")
+[node name="Background" type="TextureRect" parent="." unique_id=565323526]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -17.0
+offset_right = 9.0
+offset_bottom = 131.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_0ebjn")
 
 [node name="Title" type="Label" parent="." unique_id=1834273499]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -32.0
-offset_right = 32.0
-offset_bottom = 23.0
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -45.5
+offset_right = 132.0
+offset_bottom = 45.5
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.096204735, 0.09620475, 0.096204735, 1)
+grow_vertical = 2
 theme_override_font_sizes/font_size = 66
 text = "游戏标题"
 
 [node name="SaveListContainer" type="VBoxContainer" parent="." unique_id=1380822623]
 layout_mode = 1
-anchors_preset = 11
+anchors_preset = 6
 anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 grow_horizontal = 0
 grow_vertical = 2
 alignment = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=226085959]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.9953704
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -4.0
-offset_top = -32.0
-offset_right = 4.0
+anchor_bottom = 0.9953704
+offset_left = -36.0
+offset_top = -156.0
+offset_right = 36.0
+offset_bottom = -90.0
 grow_horizontal = 2
 grow_vertical = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="NewGameButton" type="Button" parent="VBoxContainer" unique_id=776864267]
 layout_mode = 2
