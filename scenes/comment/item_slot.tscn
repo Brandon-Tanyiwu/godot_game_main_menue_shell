@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://cb1lgvas4bb1y"]
+
+[ext_resource type="Script" uid="uid://br4uyble423jt" path="res://script/comment/item_slot.gd" id="1_s500w"]
+[ext_resource type="PackedScene" uid="uid://btngdqbqcrfrx" path="res://scenes/comment/item_tooltip.tscn" id="2_u1apg"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_s500w"]
+specular_color = Color(0.17749879, 0.7426175, 0.8472819, 1)
+
+[node name="ItemSlot" type="PanelContainer" unique_id=1067880216]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 1.0
+offset_bottom = 23.0
+script = ExtResource("1_s500w")
+
+[node name="Background" type="TextureRect" parent="." unique_id=137171445]
+layout_mode = 2
+texture = SubResource("CanvasTexture_s500w")
+expand_mode = 1
+
+[node name="Border" type="ColorRect" parent="." unique_id=351686461]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1623558837]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="VBoxContainer" unique_id=1329797442]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.099985994, 0.099985994, 0.099985994, 1)
+theme_override_font_sizes/font_size = 9
+text = "soldier"
+horizontal_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="VBoxContainer" unique_id=2142539935]
+texture_filter = 1
+texture_repeat = 2
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+expand_mode = 1
+
+[node name="PriceContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=2103707305]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="AmountLabel" type="Label" parent="VBoxContainer/PriceContainer" unique_id=1225882214]
+visible = false
+layout_mode = 2
+
+[node name="PriceLabel" type="Label" parent="VBoxContainer/PriceContainer" unique_id=1815816951]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.008202022, 0.008202025, 0.008202025, 1)
+theme_override_font_sizes/font_size = 6
+text = "100"
+
+[node name="DiscountPriceLabel" type="Label" parent="VBoxContainer/PriceContainer" unique_id=603695527]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.0142752165, 0.014275218, 0.014275218, 1)
+theme_override_font_sizes/font_size = 6
+text = "90"
+vertical_alignment = 2
+
+[node name="ItemTooltip" parent="." unique_id=316137870 instance=ExtResource("2_u1apg")]
+layout_mode = 2

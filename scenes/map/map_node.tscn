@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://ddxramh1klnm4"]
+
+[ext_resource type="Script" uid="uid://bwltd2bnyd5u6" path="res://script/map/map_node.gd" id="1_y6hvl"]
+[ext_resource type="Texture2D" uid="uid://cpt6tm3tmvvh5" path="res://icon.svg" id="2_l8gir"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3ahw5"]
+radius = 27.89265
+
+[node name="MapNode" type="Node2D" unique_id=1782010555 node_paths=PackedStringArray("sprite", "label")]
+script = ExtResource("1_y6hvl")
+sprite = NodePath("Sprite2D")
+label = NodePath("Label")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=600781354]
+position = Vector2(-3.8146973e-06, -3.8146973e-06)
+scale = Vector2(0.3671875, 0.3671875)
+texture = ExtResource("2_l8gir")
+
+[node name="Label" type="Label" parent="." unique_id=810774027]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1460539051]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1301926755]
+shape = SubResource("CircleShape2D_3ahw5")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

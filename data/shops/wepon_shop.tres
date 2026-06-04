@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ShopData" format=3 uid="uid://dkit8rc5sg32r"]
+
+[ext_resource type="Script" uid="uid://dn4gbaqagsdwi" path="res://script/resources/item_data.gd" id="1_ifxku"]
+[ext_resource type="Resource" uid="uid://cm8xfjp14yo5e" path="res://data/items/fire_sword.tres" id="2_l7d6b"]
+[ext_resource type="Script" uid="uid://l4w6sf61gvf3" path="res://script/resources/shop_data.gd" id="2_sfjiw"]
+[ext_resource type="Resource" uid="uid://cwpnkfd0v8y1m" path="res://data/shopkeepers/lucia.tres" id="4_2dwij"]
+
+[resource]
+script = ExtResource("2_sfjiw")
+shop_name = "武器商店"
+shopkeeper = ExtResource("4_2dwij")
+items = Array[ExtResource("1_ifxku")]([ExtResource("2_l7d6b")])
+metadata/_custom_type_script = "uid://l4w6sf61gvf3"

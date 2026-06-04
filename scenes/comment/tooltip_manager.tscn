@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dbnqxbofvlcpj"]
+
+[ext_resource type="Script" uid="uid://coevo4suid7u8" path="res://script/managers/tooltip_manager.gd" id="1_0b43y"]
+[ext_resource type="PackedScene" uid="uid://btngdqbqcrfrx" path="res://scenes/comment/item_tooltip.tscn" id="2_nct4o"]
+
+[node name="tooltip_manager" type="CanvasLayer" unique_id=1881308410]
+layer = 128
+script = ExtResource("1_0b43y")
+
+[node name="ItemTooltip" parent="." unique_id=316137870 instance=ExtResource("2_nct4o")]
+visible = false

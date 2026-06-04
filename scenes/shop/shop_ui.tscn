@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://ce24y2al5dtk4"]
+
+[ext_resource type="Script" uid="uid://ponxyjl53hbi" path="res://script/shop/shop_ui.gd" id="1_380ce"]
+[ext_resource type="PackedScene" uid="uid://bflvhxf1ialjn" path="res://scenes/comment/inventory_system.tscn" id="2_gk7bq"]
+
+[node name="ShopUi" type="Control" unique_id=1302069309]
+layout_direction = 4
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_380ce")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1826171060]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=1659860572]
+custom_minimum_size = Vector2(1150, 600)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer" unique_id=1088750090]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer" unique_id=672066778]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1028668033]
+layout_mode = 2
+alignment = 1
+
+[node name="GoldLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=520179883]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=408074801]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CloseButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1013973493]
+layout_mode = 2
+size_flags_horizontal = 3
+button_mask = 7
+text = "Close"
+alignment = 2
+icon_alignment = 2
+expand_icon = true
+
+[node name="InventorySystem" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1107845013 instance=ExtResource("2_gk7bq")]
+y_sort_enabled = true
+layout_mode = 2

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bnufmtkakmmdn"]
+
+[ext_resource type="Script" uid="uid://vjgk5iliwp01" path="res://script/map/map_view.gd" id="1_sxqj8"]
+[ext_resource type="Script" uid="uid://y1jc8p7gqgrj" path="res://script/map/map_camera.gd" id="2_p7fer"]
+[ext_resource type="PackedScene" uid="uid://nrfro0eb77md" path="res://scenes/map/map_connection.tscn" id="3_me3sr"]
+
+[node name="MapView" type="Node2D" unique_id=1426012215 node_paths=PackedStringArray("node_container", "connection_container")]
+script = ExtResource("1_sxqj8")
+node_container = NodePath("Nodes")
+connection_container = NodePath("MapConnection")
+
+[node name="Nodes" type="Node" parent="." unique_id=727666659]
+
+[node name="MapCamera" type="Camera2D" parent="." unique_id=1380296180]
+limit_left = 0
+limit_top = 0
+limit_right = 1152
+limit_bottom = 648
+script = ExtResource("2_p7fer")
+
+[node name="Connections" type="Node" parent="." unique_id=337628854]
+
+[node name="MapConnection" parent="." unique_id=1104888086 instance=ExtResource("3_me3sr")]

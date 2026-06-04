@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://dex48i882qqnu"]
+
+[ext_resource type="Script" uid="uid://t2ghoukajnxs" path="res://script/main/hub_scen.gd" id="1_r21yw"]
+[ext_resource type="Texture2D" uid="uid://cpt6tm3tmvvh5" path="res://icon.svg" id="2_u8kby"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_u8kby"]
+
+[node name="HubScen" type="Control" unique_id=468095272]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r21yw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=295418887]
+position = Vector2(573.50006, 311.49997)
+scale = Vector2(1194.9999, 691)
+texture = SubResource("CanvasTexture_u8kby")
+
+[node name="TopBar" type="HBoxContainer" parent="." unique_id=1435350342]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="GoldLabel" type="Label" parent="TopBar" unique_id=2126947461]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 17.63
+theme_override_colors/font_color = Color(0.10747976, 0.10747973, 0.10747973, 1)
+text = "金币数：999"
+
+[node name="LevelLabel" type="Label" parent="TopBar" unique_id=1316683977]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 17.63
+theme_override_colors/font_color = Color(0.12955844, 0.12955847, 0.12955844, 1)
+text = "等级 999"
+horizontal_alignment = 1
+
+[node name="PlayerLabel" type="Label" parent="TopBar" unique_id=53879510]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 17.63
+theme_override_colors/font_color = Color(0.017732391, 0.017732391, 0.01773239, 1)
+text = "角色：test"
+horizontal_alignment = 2
+
+[node name="PlayerDisplay" type="Node" parent="." unique_id=755647718]
+
+[node name="RightMenu" type="VBoxContainer" parent="." unique_id=2046510638]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 240.0
+offset_right = 89.0
+offset_bottom = 436.0
+
+[node name="ShopButton" type="Button" parent="RightMenu" unique_id=1814897091]
+layout_mode = 2
+text = "商店"
+
+[node name="StageButton" type="Button" parent="RightMenu" unique_id=1899830181]
+layout_mode = 2
+text = "状态"
+
+[node name="BottomBar" type="VBoxContainer" parent="." unique_id=1753441066]
+layout_mode = 0
+offset_left = 1033.0
+offset_top = 233.0
+offset_right = 1146.0
+offset_bottom = 309.0
+
+[node name="SaveButton" type="Button" parent="BottomBar" unique_id=1089750070]
+layout_mode = 2
+text = "保存游戏"
+
+[node name="BackButton" type="Button" parent="BottomBar" unique_id=658563445]
+layout_mode = 2
+text = "返回主界面"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=967698202]
+layout_direction = 3
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="WareHouseButton" type="Button" parent="HBoxContainer" unique_id=286482039]
+layout_mode = 2
+text = "背包"
+
+[node name="EquipmentButton" type="Button" parent="HBoxContainer" unique_id=121028740]
+layout_mode = 2
+text = "装备"
+
+[node name="InventoryButton" type="Button" parent="HBoxContainer" unique_id=769183634]
+layout_mode = 2
+text = "仓库"
+
+[node name="SkillTreeButton" type="Button" parent="HBoxContainer" unique_id=1551162152]
+layout_mode = 2
+text = "技能"
+
+[node name="MapIcon" type="HBoxContainer" parent="." unique_id=1596111145]
+layout_mode = 0
+offset_left = 151.0
+offset_top = 90.0
+offset_right = 983.0
+offset_bottom = 557.0
+
+[node name="Game1" type="Button" parent="MapIcon" unique_id=2016836498]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MapIcon/Game1" unique_id=2017791644]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MapIcon/Game1/VBoxContainer" unique_id=1055322548]
+layout_mode = 2
+size_flags_vertical = 3
+text = "普通"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MapIcon/Game1/VBoxContainer" unique_id=1994990421]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("2_u8kby")
+
+[node name="Game2" type="Button" parent="MapIcon" unique_id=194018266]
+layout_mode = 2
+size_flags_horizontal = 3
+icon_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MapIcon/Game2" unique_id=216025849]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="MapIcon/Game2/VBoxContainer" unique_id=776180306]
+layout_mode = 2
+size_flags_vertical = 3
+text = "深渊"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MapIcon/Game2/VBoxContainer" unique_id=1875607920]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("2_u8kby")
+expand_mode = 2
+
+[connection signal="pressed" from="RightMenu/ShopButton" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="BottomBar/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="BottomBar/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/WareHouseButton" to="." method="_on_ware_house_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/EquipmentButton" to="." method="_on_equipment_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/SkillTreeButton" to="." method="_on_skill_tree_button_pressed"]
+[connection signal="pressed" from="MapIcon/Game1" to="." method="_on_game_1_pressed"]
+[connection signal="pressed" from="MapIcon/Game2" to="." method="_on_game_2_pressed"]

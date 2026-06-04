@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ShopData" format=3 uid="uid://cghxlistxdmpy"]
+
+[ext_resource type="Script" uid="uid://dn4gbaqagsdwi" path="res://script/resources/item_data.gd" id="1_ww0lr"]
+[ext_resource type="Script" uid="uid://l4w6sf61gvf3" path="res://script/resources/shop_data.gd" id="2_linbt"]
+[ext_resource type="Script" uid="uid://de3gkx1yo0ckj" path="res://script/resources/shopkeeper_data.gd" id="3_linbt"]
+
+[sub_resource type="Resource" id="Resource_52ngn"]
+script = ExtResource("3_linbt")
+keeper_name = "test_shopdata"
+greeting = "welcome"
+metadata/_custom_type_script = "uid://de3gkx1yo0ckj"
+
+[resource]
+script = ExtResource("2_linbt")
+shopkeeper = SubResource("Resource_52ngn")

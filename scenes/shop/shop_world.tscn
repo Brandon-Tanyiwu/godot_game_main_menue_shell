@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://c0k5j6wacw0p"]
+
+[ext_resource type="Script" uid="uid://bbq8wsv8i6sw7" path="res://script/shop/shop_world.gd" id="1_yk4k3"]
+[ext_resource type="Resource" uid="uid://dkit8rc5sg32r" path="res://data/shops/wepon_shop.tres" id="2_3vh0r"]
+[ext_resource type="PackedScene" uid="uid://mngy71220fu6" path="res://scenes/shop/npc_dialog.tscn" id="4_fvctj"]
+[ext_resource type="PackedScene" uid="uid://ce24y2al5dtk4" path="res://scenes/shop/shop_ui.tscn" id="5_0fepw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3cd6"]
+size = Vector2(176, 136)
+
+[node name="ShopWorld" type="Node2D" unique_id=1028746024]
+script = ExtResource("1_yk4k3")
+shop_data = ExtResource("2_3vh0r")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=509658468]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=893624799]
+position = Vector2(116, 533)
+shape = SubResource("RectangleShape2D_n3cd6")
+debug_color = Color(0.8479427, 0.18043917, 0.8059313, 0.41960785)
+
+[node name="Wall" type="Sprite2D" parent="." unique_id=933880761]
+position = Vector2(-16, -22)
+scale = Vector2(76, 727)
+
+[node name="BackGround" type="Sprite2D" parent="." unique_id=992693460]
+position = Vector2(584.75, 333.25)
+scale = Vector2(1166.5, 667.5)
+
+[node name="ShopKeeper" type="Sprite2D" parent="." unique_id=1128416208]
+position = Vector2(88, 500)
+
+[node name="CloseButton" type="Button" parent="." unique_id=1268128111]
+offset_left = 1059.0
+offset_top = 17.0
+offset_right = 1131.0
+offset_bottom = 48.0
+text = "离开商店"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1768971665]
+
+[node name="ShopUi" parent="CanvasLayer" unique_id=1302069309 instance=ExtResource("5_0fepw")]
+visible = false
+offset_left = 7.0
+offset_top = -1.0
+offset_right = 7.0
+offset_bottom = -1.0
+mouse_filter = 2
+
+[node name="NpcDialog" parent="CanvasLayer" unique_id=608552412 instance=ExtResource("4_fvctj")]
+visible = false
+offset_left = -3.0
+offset_top = -10.0
+offset_right = -3.0
+offset_bottom = -10.0
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

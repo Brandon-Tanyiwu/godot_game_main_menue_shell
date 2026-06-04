@@ -1,0 +1,24 @@
+[gd_resource type="Resource" format=3 uid="uid://dsbcgbhwkj27j"]
+
+[sub_resource type="GDScript" id="GDScript_rh0rl"]
+script/source = "extends Resource
+
+class_name ItemData
+
+@export var item_name: String
+@export_multiline var description:String
+
+@export var icon:Texture2D
+@export var rarity:int = 0
+
+@export var base_price:int = 100
+
+@export var attack:int = 0
+@export var defense:int = 0 
+@export var hp:int = 0
+
+@export_multiline var special_effect:String
+"
+
+[resource]
+script = SubResource("GDScript_rh0rl")

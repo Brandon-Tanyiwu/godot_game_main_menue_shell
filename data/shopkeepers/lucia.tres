@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ShopKeeperData" format=3 uid="uid://cwpnkfd0v8y1m"]
+
+[ext_resource type="Script" uid="uid://de3gkx1yo0ckj" path="res://script/resources/shopkeeper_data.gd" id="1_q15ex"]
+[ext_resource type="Texture2D" uid="uid://cpt6tm3tmvvh5" path="res://icon.svg" id="1_tbkg6"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_tbkg6"]
+
+[resource]
+script = ExtResource("1_q15ex")
+keeper_name = "露西亚"
+portrait = ExtResource("1_tbkg6")
+greeting = "welcom "
+discount_rate = 0.81
+background = SubResource("CanvasTexture_tbkg6")
+metadata/_custom_type_script = "uid://de3gkx1yo0ckj"

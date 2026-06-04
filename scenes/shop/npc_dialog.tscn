@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://mngy71220fu6"]
+
+[ext_resource type="Script" uid="uid://cwn8hgng1iako" path="res://script/shop/npc_dialog.gd" id="1_vmekj"]
+
+[node name="NpcDialog" type="Control" unique_id=608552412]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_vmekj")
+
+[node name="Panel" type="Panel" parent="." unique_id=1144469663]
+layout_mode = 0
+offset_right = 381.0
+offset_bottom = 64.0
+
+[node name="NameLabel" type="Label" parent="Panel" unique_id=1212405749]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 11.0
+offset_right = 1065.0
+offset_bottom = 69.0
+
+[node name="DialogLabel" type="Label" parent="Panel" unique_id=1395067313]
+layout_mode = 0
+offset_left = 264.0
+offset_top = 556.0
+offset_right = 814.0
+offset_bottom = 650.0
+
+[node name="EnterShopButton" type="Button" parent="Panel" unique_id=4762522]
+layout_mode = 0
+offset_left = 817.0
+offset_top = 570.0
+offset_right = 1155.0
+offset_bottom = 648.0
+text = "看看卖什么"

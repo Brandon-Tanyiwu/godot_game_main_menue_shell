@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bflvhxf1ialjn"]
+
+[ext_resource type="Script" uid="uid://c0afqms2u0kel" path="res://script/comment/inventory_system.gd" id="1_0gvdo"]
+[ext_resource type="PackedScene" path="res://scenes/comment/item_tooltip.tscn" id="2_1hpkn"]
+[ext_resource type="PackedScene" path="res://scenes/comment/item_slot.tscn" id="2_62qxa"]
+
+[node name="InventorySystem" type="Control" unique_id=1107845013]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=356753324]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -275.0
+offset_right = 275.0
+offset_bottom = 600.0
+grow_horizontal = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer" unique_id=1119925966]
+custom_minimum_size = Vector2(550, 600)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/ScrollContainer" unique_id=327711507 node_paths=PackedStringArray("tooltip_panel")]
+layout_direction = 4
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 8
+script = ExtResource("1_0gvdo")
+slot_scene = ExtResource("2_62qxa")
+tooltip_panel = NodePath("../../ItemTooltip")
+
+[node name="ItemTooltip" parent="HBoxContainer" unique_id=316137870 instance=ExtResource("2_1hpkn")]
+layout_mode = 2

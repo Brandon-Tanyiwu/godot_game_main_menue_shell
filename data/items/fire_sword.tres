@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cm8xfjp14yo5e"]
+
+[ext_resource type="Script" uid="uid://dn4gbaqagsdwi" path="res://script/resources/item_data.gd" id="1_24n2s"]
+[ext_resource type="Texture2D" uid="uid://cpt6tm3tmvvh5" path="res://icon.svg" id="1_rr61y"]
+
+[resource]
+script = ExtResource("1_24n2s")
+item_name = "火炎剑"
+icon = ExtResource("1_rr61y")
+rarity = 1
+attack = 10
+special_effect = "raise fire 5 seconds"
+metadata/_custom_type_script = "uid://dn4gbaqagsdwi"

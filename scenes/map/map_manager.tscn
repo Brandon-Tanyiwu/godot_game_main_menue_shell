@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c7s42wogd6qda"]
+
+[ext_resource type="Script" uid="uid://bt0nl50v2j8u2" path="res://script/map/map_manager.gd" id="1_ek5xs"]
+[ext_resource type="PackedScene" uid="uid://bnufmtkakmmdn" path="res://scenes/map/map_view.tscn" id="2_7dvyr"]
+[ext_resource type="PackedScene" uid="uid://ddxramh1klnm4" path="res://scenes/map/map_node.tscn" id="3_75h61"]
+
+[node name="MapManager" type="Node" unique_id=1281373492 node_paths=PackedStringArray("map_view")]
+script = ExtResource("1_ek5xs")
+map_view = NodePath("MapView")
+
+[node name="MapView" parent="." unique_id=1426012215 instance=ExtResource("2_7dvyr")]
+
+[node name="MapNode" parent="." unique_id=1782010555 instance=ExtResource("3_75h61")]
+visible = false

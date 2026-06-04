@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ShopKeeperData" format=3 uid="uid://ce73jwgj5tmfh"]
+
+[ext_resource type="Script" uid="uid://de3gkx1yo0ckj" path="res://script/resources/shopkeeper_data.gd" id="1_i2pux"]
+[ext_resource type="Texture2D" uid="uid://cjbufau3d50ig" path="res://icon.svg" id="1_isr32"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_isr32"]
+
+[resource]
+script = ExtResource("1_i2pux")
+keeper_name = "shopkeeper1"
+portrait = ExtResource("1_isr32")
+greeting = "welcom"
+background = SubResource("CanvasTexture_isr32")

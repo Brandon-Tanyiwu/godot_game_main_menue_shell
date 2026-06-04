@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://cqu1ufwdsb3vm"]
+
+[ext_resource type="Script" uid="uid://ciok1rj3o7c77" path="res://script/main/main_menu.gd" id="1_0ebjn"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_fsom3"]
+
+[node name="MainMenu" type="Control" unique_id=960184055]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0ebjn")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1721059156]
+position = Vector2(580.00006, 340.5)
+scale = Vector2(1262.0001, 737.00006)
+texture = SubResource("CanvasTexture_fsom3")
+
+[node name="Title" type="Label" parent="." unique_id=1834273499]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.096204735, 0.09620475, 0.096204735, 1)
+theme_override_font_sizes/font_size = 66
+text = "游戏标题"
+
+[node name="SaveListContainer" type="VBoxContainer" parent="." unique_id=1380822623]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=226085959]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -32.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NewGameButton" type="Button" parent="VBoxContainer" unique_id=776864267]
+layout_mode = 2
+text = "新游戏"
+
+[node name="ContinueButton" type="Button" parent="VBoxContainer" unique_id=1108600151]
+visible = false
+layout_mode = 2
+text = "继续戏"
+
+[node name="ExitButton" type="Button" parent="VBoxContainer" unique_id=281813743]
+layout_mode = 2
+text = "退出游戏"
+
+[connection signal="pressed" from="VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
