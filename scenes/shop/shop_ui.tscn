@@ -59,3 +59,13 @@ expand_icon = true
 [node name="InventorySystem" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1107845013 instance=ExtResource("2_gk7bq")]
 y_sort_enabled = true
 layout_mode = 2
+
+[node name="refresh test" type="Button" parent="." unique_id=843476332]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 65.0
+offset_right = 109.0
+offset_bottom = 96.0
+text = "商店刷新测试"
+
+[connection signal="pressed" from="refresh test" to="." method="_on_refresh_test_pressed"]

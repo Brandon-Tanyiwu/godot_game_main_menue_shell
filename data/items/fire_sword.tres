@@ -1,12 +1,16 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cm8xfjp14yo5e"]
 
 [ext_resource type="Script" uid="uid://dn4gbaqagsdwi" path="res://script/resources/item_data.gd" id="1_24n2s"]
-[ext_resource type="Texture2D" uid="uid://cpt6tm3tmvvh5" path="res://icon.svg" id="1_rr61y"]
+[ext_resource type="Texture2D" uid="uid://csag4nwem3bkg" path="res://resource/item/#1 - Transparent Icons.png" id="1_rr61y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ek3fw"]
+atlas = ExtResource("1_rr61y")
+region = Rect2(131, 164, 25, 25)
 
 [resource]
 script = ExtResource("1_24n2s")
 item_name = "火炎剑"
-icon = ExtResource("1_rr61y")
+icon = SubResource("AtlasTexture_ek3fw")
 rarity = 1
 attack = 10
 special_effect = "raise fire 5 seconds"

@@ -21,6 +21,8 @@ SceneManager="*uid://bfsgolq0nfbop"
 SaveManager="*uid://c6qmqiovuhh1j"
 PlayerManager="*uid://vqhqvabprvoc"
 TooltipManager="*uid://dbnqxbofvlcpj"
+GameDataManager="*uid://cqmje3qpgpa2w"
+ShopRefreshManager="*uid://x8nlcyqwo63i"
 
 [editor]
 

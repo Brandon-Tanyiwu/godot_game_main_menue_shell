@@ -69,3 +69,7 @@ func open_shop() -> void:
 	
 func close_shop() -> void:
 	hide()
+
+
+func _on_refresh_test_pressed() -> void:
+	ShopRefreshManager.force_refresh()

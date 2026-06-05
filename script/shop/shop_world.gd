@@ -10,21 +10,20 @@ extends Node2D
 @export var shop_data :ShopData
 
 func _ready() -> void:
-	load_shop()
+	ShopRefreshManager.shop_refreshed.connect(load_shop)
+	load_shop(ShopRefreshManager.current_shop_data)
 	npc_dialog.hide()
 	shop_ui.hide()
 
-func load_shop():
+func load_shop(shop_data: ShopData):
+	if not shop_data: return
 	
 	var keeper = shop_data.shopkeeper
-	
 	background.texture = keeper.background
-	
-	shopkeeper_sprite.texture =keeper.portrait
+	shopkeeper_sprite.texture = keeper.portrait
 	
 	npc_dialog.setup(keeper)
-	
-	shop_ui.setup(shop_data)
+	shop_ui.setup(shop_data) # 你的 UI 内部循环读取 shop_data.items 来创建商品格子
 	
 
 

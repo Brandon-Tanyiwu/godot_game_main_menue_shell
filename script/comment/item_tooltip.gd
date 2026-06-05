@@ -12,7 +12,7 @@ func display_info(item:ItemData):
 		hide()
 		return
 	name_label.text = item.item_name
-	description_label.text = item.description
+	description_label.text = item.description + str(item.x) + str(item.y)
 	
 	for child in tags_container.get_children():
 		child.queue_free()
