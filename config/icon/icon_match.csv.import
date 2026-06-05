@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dpod8fhbq508y"
+
+[deps]
+
+files=["res://config/icon/icon_match.icon.translation", "res://config/icon/icon_match.x.translation", "res://config/icon/icon_match.y.translation"]
+
+source_file="res://config/icon/icon_match.csv"
+dest_files=["res://config/icon/icon_match.icon.translation", "res://config/icon/icon_match.x.translation", "res://config/icon/icon_match.y.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true
