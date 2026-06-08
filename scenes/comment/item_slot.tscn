@@ -1,10 +1,15 @@
 [gd_scene format=3 uid="uid://cb1lgvas4bb1y"]
 
 [ext_resource type="Script" uid="uid://br4uyble423jt" path="res://script/comment/item_slot.gd" id="1_s500w"]
+[ext_resource type="Texture2D" uid="uid://csag4nwem3bkg" path="res://resource/item/#1 - Transparent Icons.png" id="2_1t3j0"]
 [ext_resource type="PackedScene" uid="uid://btngdqbqcrfrx" path="res://scenes/comment/item_tooltip.tscn" id="2_u1apg"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_s500w"]
 specular_color = Color(0.17749879, 0.7426175, 0.8472819, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wkbfe"]
+atlas = ExtResource("2_1t3j0")
+region = Rect2(355, 387, 26, 26)
 
 [node name="ItemSlot" type="PanelContainer" unique_id=1067880216]
 custom_minimum_size = Vector2(64, 64)
@@ -40,6 +45,7 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+texture = SubResource("AtlasTexture_wkbfe")
 expand_mode = 1
 
 [node name="PriceContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=2103707305]

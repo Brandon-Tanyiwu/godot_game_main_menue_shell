@@ -32,6 +32,7 @@ func _on_equipment_button_pressed() -> void:
 
 func _on_ware_house_button_pressed() -> void:
 	print("open_warehouse")
+	SceneManager.change_scene("res://scenes/bag&inventory/bag.tscn")
 
 
 func _on_back_button_pressed() -> void:

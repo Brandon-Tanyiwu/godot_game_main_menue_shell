@@ -34,7 +34,7 @@ func _ready() -> void:
 
 ## 核心融合方法：兼容 商店、背包、仓库
 ## is_shop_mode 为 true 时显示价格，为 false 时显示数量
-func setup_slot(data: ItemData, amount: int = 1, discount_rate: float = 1.0, is_shop_mode: bool = false):
+func setup_slot(data: ItemData, amount: int = 1, is_shop_mode: bool = false,other_info:Dictionary={}):
 	if data == null:
 		clear_slot()
 		return
@@ -57,10 +57,11 @@ func setup_slot(data: ItemData, amount: int = 1, discount_rate: float = 1.0, is_
 		
 		price_label.text = str(data.base_price)
 		price_label.show()
-		
-		var final_price = int(data.base_price * discount_rate)
-		discount_price_label.text = str(final_price)
-		discount_price_label.show()
+		var final_price:int
+		if other_info.has("discount_rate"):
+			final_price= data.price * other_info["discount_rate"]
+			discount_price_label.text = str(final_price)
+			discount_price_label.show()
 	else:
 		# 背包/仓库模式：隐藏价格标签，展示物品堆叠数量
 		price_label.hide()

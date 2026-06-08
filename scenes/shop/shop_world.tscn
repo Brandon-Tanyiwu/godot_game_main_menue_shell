@@ -58,6 +58,10 @@ offset_right = 7.0
 offset_bottom = -1.0
 mouse_filter = 2
 
+[node name="GridContainer" parent="CanvasLayer/ShopUi/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/InventorySystem/HBoxContainer/ScrollContainer" parent_id_path=PackedInt32Array(1302069309, 1107845013, 1119925966) index="0" unique_id=327711507]
+columns = 8
+current_grid_type = 1
+
 [node name="NpcDialog" parent="CanvasLayer" unique_id=608552412 instance=ExtResource("4_fvctj")]
 visible = false
 offset_left = -3.0
@@ -67,3 +71,6 @@ offset_bottom = -10.0
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
+
+[editable path="CanvasLayer/ShopUi"]
+[editable path="CanvasLayer/ShopUi/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/InventorySystem"]

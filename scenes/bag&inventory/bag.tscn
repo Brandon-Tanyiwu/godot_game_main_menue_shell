@@ -4,11 +4,15 @@
 [ext_resource type="Script" uid="uid://bpwpk2xftnfad" path="res://script/bag/bag.gd" id="1_usfjo"]
 
 [node name="BagPanel" type="PanelContainer" unique_id=868357099]
-anchors_preset = 15
+anchors_preset = 11
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
+offset_left = -72.0
+grow_horizontal = 0
 grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
 script = ExtResource("1_usfjo")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1226537962]
@@ -24,5 +28,11 @@ text = "关闭背包"
 
 [node name="InventorySystem" parent="." unique_id=1107845013 instance=ExtResource("1_e0604")]
 layout_mode = 2
+
+[node name="GridContainer" parent="InventorySystem/HBoxContainer/ScrollContainer" parent_id_path=PackedInt32Array(1107845013, 1119925966) index="0" unique_id=327711507]
+columns = 6
+current_grid_type = 4
+
+[connection signal="pressed" from="HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
 
 [editable path="InventorySystem"]

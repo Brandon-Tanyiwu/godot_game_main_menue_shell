@@ -23,7 +23,7 @@ func setup(data: ShopData) -> void:
 ## 将商店数据上架到通用网格中
 func load_shop_items() -> void:
 	# 1. 先清空当前货架网格的所有格子
-	for i in range(inventory_system.GRID_SIZE):
+	for i in range(inventory_system.grid_size):
 		inventory_system.remove_item(i)
 		
 	if not shop_data or not "items" in shop_data:
@@ -50,12 +50,6 @@ func update_gold_display() -> void:
 func _on_shop_item_clicked(item_data: ItemData) -> void:
 	if item_data == null:
 		return
-		
-	# 计算最终折后价格
-	var discount = shop_data.shopkeeper.discount_rate if "shopkeeper" in shop_data and shop_data.shopkeeper else 1.0
-	var final_price = int(item_data.base_price * discount) # 假设你的 ItemData 里有 base_price
-	
-	print("想要购买商品: ", item_data.resource_path, " 最终价格: ", final_price)
 	
 	# 【执行购买】
 	# 1. 检查玩家全局单例中的金币是否足够 (如 if PlayerData.gold < final_price)

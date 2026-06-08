@@ -6,43 +6,47 @@ class_name InventorySystem
 # 【新增】当格子被点击时，向外派发信号，方便 ShopUI 监听并触发购买
 signal item_clicked_ext(item_data: ItemData)
 
-const GRID_SIZE = 64 
+var grid_size = 24
+enum GridType {DEFAULT,SHOP,EQUIPMENT,WAREHOUSE,BAG}
+@export var current_grid_type: GridType = GridType.DEFAULT
 var inventory_data:Array = []
+var slot_nodes:Array[ItemSlot] = []
 
 func _ready() -> void:
-	inventory_data.resize(GRID_SIZE)
+	inventory_data.resize(grid_size)
 	inventory_data.fill(null)
 	_initialize_grid()
 	
 func _initialize_grid():
-	for i in range(GRID_SIZE):
+	for i in range(grid_size):
 		var slot:ItemSlot = slot_scene.instantiate()
 		add_child(slot)
+		slot_nodes.append(slot)
 		slot.slot_clicked.connect(_on_slot_clicked)
 
 func update_slot_ui(index:int):
-	var slot :ItemSlot = get_child(index)
+	var slot :ItemSlot = slot_nodes[index]
 	var data = inventory_data[index]
 	
 	if data != null:
-		# 🛠️【修复】将 "Amount" 改为小写 "amount" 与写入时保持一致
-		slot.setup_slot(data["item"], data["amount"])
+		var is_shop = (current_grid_type == GridType.SHOP)
+		var _extra_data = data.get("extra",{})
+		slot.setup_slot(data["item"], data["amount"],is_shop,_extra_data)
 		
-		# 【新增】如果数据里包含商店专属的额外信息（如折扣），且 ItemSlot 编写了接收方法，则传过去
-		if data.has("extra") and slot.has_method("set_shop_properties"):
-			slot.set_shop_properties(data["extra"])
 	else:
 		slot.clear_slot()
 
 # 【改造】允许接收一个可选的 extra 字典，用来存放商店特有的数据（如价格、折扣）
 func insert_item(index: int, item:ItemData, amount:int = 1, extra: Dictionary = {}):
-	if index < 0 or index >= GRID_SIZE:
+	if index < 0 or index >= grid_size:
 		return
 	inventory_data[index] = {"item": item, "amount": amount, "extra": extra}
 	update_slot_ui(index)		
+# 背包数据管理脚本 (例如 InventoryManager.gd)
+
 
 func remove_item(index:int):
-	if index >= 0 and index < GRID_SIZE:
+	if index >= 0 and index < grid_size:
 		inventory_data[index] = null
 		update_slot_ui(index)
 
