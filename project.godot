@@ -23,6 +23,7 @@ PlayerManager="*uid://vqhqvabprvoc"
 TooltipManager="*uid://dbnqxbofvlcpj"
 GameDataManager="*uid://cqmje3qpgpa2w"
 ShopRefreshManager="*uid://x8nlcyqwo63i"
+SignalManager="*uid://d2ilvgvcrloaw"
 
 [editor]
 

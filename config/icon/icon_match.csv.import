@@ -6,10 +6,10 @@ uid="uid://dpod8fhbq508y"
 
 [deps]
 
-files=["res://config/icon/icon_match.icon.translation", "res://config/icon/icon_match.x.translation", "res://config/icon/icon_match.y.translation"]
+files=["res://config/icon/icon_match.icon.translation", "res://config/icon/icon_match.y.translation", "res://config/icon/icon_match.x.translation"]
 
 source_file="res://config/icon/icon_match.csv"
-dest_files=["res://config/icon/icon_match.icon.translation", "res://config/icon/icon_match.x.translation", "res://config/icon/icon_match.y.translation"]
+dest_files=["res://config/icon/icon_match.icon.translation", "res://config/icon/icon_match.y.translation", "res://config/icon/icon_match.x.translation"]
 
 [params]
 

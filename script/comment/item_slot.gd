@@ -98,7 +98,7 @@ func get_rarity_color(rarity: int) -> Color:
 		4: return Color.GOLD
 		5: return Color.RED
 	return Color.WHITE
-
+#
 ## 悬浮窗显示（加入非空校验）
 func _on_hover():
 	# ❗ 核心改动：如果格子里没有物品，绝对不要弹窗

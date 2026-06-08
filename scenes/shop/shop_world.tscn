@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ce24y2al5dtk4" path="res://scenes/shop/shop_ui.tscn" id="5_0fepw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n3cd6"]
-size = Vector2(176, 136)
+size = Vector2(420, 641)
 
 [node name="ShopWorld" type="Node2D" unique_id=1028746024]
 script = ExtResource("1_yk4k3")
@@ -13,20 +13,33 @@ script = ExtResource("1_yk4k3")
 [node name="Area2D" type="Area2D" parent="." unique_id=509658468]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=893624799]
-position = Vector2(116, 533)
+position = Vector2(214, 325.5)
 shape = SubResource("RectangleShape2D_n3cd6")
 debug_color = Color(0.8479427, 0.18043917, 0.8059313, 0.41960785)
 
-[node name="Wall" type="Sprite2D" parent="." unique_id=933880761]
-position = Vector2(-16, -22)
+[node name="Wall" type="TextureRect" parent="." unique_id=1448567961]
+offset_left = -16.0
+offset_top = -22.0
+offset_right = -16.0
+offset_bottom = -22.0
 scale = Vector2(76, 727)
 
-[node name="BackGround" type="Sprite2D" parent="." unique_id=992693460]
-position = Vector2(584.75, 333.25)
+[node name="BackGround" type="TextureRect" parent="." unique_id=177224122]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(1166.5, 667.5)
+size_flags_vertical = 4
 
-[node name="ShopKeeper" type="Sprite2D" parent="." unique_id=1128416208]
-position = Vector2(88, 500)
+[node name="ShopKeeper" type="TextureRect" parent="." unique_id=1519477126]
+custom_minimum_size = Vector2(200, 200)
+offset_left = 7.0
+offset_top = 11.0
+offset_right = 478.0
+offset_bottom = 650.0
+expand_mode = 1
 
 [node name="CloseButton" type="Button" parent="." unique_id=1268128111]
 offset_left = 1059.0

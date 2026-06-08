@@ -8,19 +8,19 @@ const REFRESH_INTERVAL_SECONDS = 3600
 var shop_list = {
 	"武器商店":{
 		"keeper_name":"翰墨"
-		,"portrait":"res://resource/tileset/hanmer.png"
+		,"portrait":"res://resource/shoop_keeper/rient_shopkeeper.png"
 		,"background":"res://resource/background/orig.png"
 		,"item_type_pool":["equipment","weapon"]
 	}
 	,"药剂商店":{
 		"keeper_name":"莉莉"
-		,"portrait":"res://resource/tileset/lili.png"
+		,"portrait":"res://resource/shoop_keeper/eva_shopkeeper.png"
 		,"background":"res://resource/background/orig.png"
 		,"item_type_pool":["consumable"]
 	}
 	,"食物商店":{
-		"keeper_name":"莉莉"
-		,"portrait":"res://resource/tileset/cofu.png"
+		"keeper_name":"布隆"
+		,"portrait":"res://resource/shoop_keeper/bloom_shopkeeper.png"
 		,"background":"res://resource/background/orig.png"
 		,"item_type_pool":["food"]
 	}
@@ -65,6 +65,7 @@ func force_refresh()-> void:
 	var keeper = ShopKeeperData.new()
 	keeper.keeper_name = template["keeper_name"]
 	keeper.portrait = load(template["portrait"])
+	
 	keeper.background =load(template["background"])
 	new_shop.shopkeeper=keeper
 	

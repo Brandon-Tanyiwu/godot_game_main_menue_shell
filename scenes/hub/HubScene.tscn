@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dex48i882qqnu"]
 
 [ext_resource type="Script" uid="uid://t2ghoukajnxs" path="res://script/main/hub_scen.gd" id="1_r21yw"]
+[ext_resource type="Texture2D" uid="uid://dd6eugqligwrq" path="res://resource/ui/forest_pass.png" id="2_hoyx8"]
 [ext_resource type="Texture2D" uid="uid://cpt6tm3tmvvh5" path="res://icon.svg" id="2_u8kby"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_u8kby"]
@@ -14,8 +15,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_r21yw")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=295418887]
-position = Vector2(573.50006, 311.49997)
+[node name="Sprite2D" type="TextureRect" parent="." unique_id=1706825578]
+layout_mode = 1
+offset_right = 1.0
+offset_bottom = 1.0
 scale = Vector2(1194.9999, 691)
 texture = SubResource("CanvasTexture_u8kby")
 
@@ -143,7 +146,8 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
-texture = ExtResource("2_u8kby")
+texture = ExtResource("2_hoyx8")
+expand_mode = 1
 
 [node name="Game2" type="Button" parent="MapIcon" unique_id=194018266]
 layout_mode = 2

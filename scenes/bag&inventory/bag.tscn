@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bwfm2on8hl56t"]
+
+[ext_resource type="PackedScene" uid="uid://bflvhxf1ialjn" path="res://scenes/comment/inventory_system.tscn" id="1_e0604"]
+[ext_resource type="Script" uid="uid://bpwpk2xftnfad" path="res://script/bag/bag.gd" id="1_usfjo"]
+
+[node name="BagPanel" type="PanelContainer" unique_id=868357099]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_usfjo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1226537962]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+alignment = 2
+
+[node name="CloseButton" type="Button" parent="HBoxContainer" unique_id=1268128111]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "关闭背包"
+
+[node name="InventorySystem" parent="." unique_id=1107845013 instance=ExtResource("1_e0604")]
+layout_mode = 2
+
+[editable path="InventorySystem"]

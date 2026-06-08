@@ -10,7 +10,9 @@ class_name SaveData
 @export var hp:int = 100
 @export var attack:int = 10
 
-@export var inventory:Array = []
+@export var inventory:Dictionary = {}
+
+@export var bag:Dictionary = {}
 
 @export var equipped_items = []
 

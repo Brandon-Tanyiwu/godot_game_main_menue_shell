@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bflvhxf1ialjn"]
 
 [ext_resource type="Script" uid="uid://c0afqms2u0kel" path="res://script/comment/inventory_system.gd" id="1_0gvdo"]
-[ext_resource type="PackedScene" uid="uid://btngdqbqcrfrx" path="res://scenes/comment/item_tooltip.tscn" id="2_1hpkn"]
 [ext_resource type="PackedScene" uid="uid://cb1lgvas4bb1y" path="res://scenes/comment/item_slot.tscn" id="2_62qxa"]
 
 [node name="InventorySystem" type="Control" unique_id=1107845013]
@@ -35,11 +34,6 @@ horizontal_scroll_mode = 0
 layout_direction = 4
 layout_mode = 2
 size_flags_horizontal = 3
-columns = 8
+columns = 4
 script = ExtResource("1_0gvdo")
 slot_scene = ExtResource("2_62qxa")
-
-[node name="ItemTooltip" parent="HBoxContainer" unique_id=316137870 instance=ExtResource("2_1hpkn")]
-custom_minimum_size = Vector2(6, 6)
-layout_mode = 2
-size_flags_vertical = 4

@@ -15,14 +15,18 @@ script = ExtResource("1_380ce")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1826171060]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 11
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
+offset_left = -800.0
+offset_top = 151.0
+offset_bottom = 3.0
+grow_horizontal = 0
 grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=1659860572]
-custom_minimum_size = Vector2(1150, 600)
+custom_minimum_size = Vector2(800, 500)
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer" unique_id=1088750090]

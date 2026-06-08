@@ -68,3 +68,5 @@ vertical_alignment = 2
 
 [node name="ItemTooltip" parent="." unique_id=316137870 instance=ExtResource("2_u1apg")]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
