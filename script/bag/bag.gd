@@ -38,7 +38,7 @@ func load_bag() -> void:
 			var bag_item_id = slot_data["item_id"]
 			
 			if GameDataManager.items.has(bag_item_id):
-				var base_item = GameDataManager.items[bag_item_id]
+				var base_item = GameDataManager.get_item_data(bag_item_id)
 				var item_num = slot_data.get("item_num", 1)
 				
 				# 🌟 只刷新这个格子的内容，没有任何节点被销毁或新建！

@@ -12,8 +12,6 @@ func _ready() -> void:
 	print("load csv data")
 	items = _load_csv("res://config/item/item_data.csv")
 	icons = _load_csv("res://config/icon/icon_match.csv")
-	print(items)
-
 func _load_csv(path:String, delimiter:String=",")-> Dictionary:
 	var result:Dictionary = {}
 	
@@ -35,13 +33,14 @@ func _load_csv(path:String, delimiter:String=",")-> Dictionary:
 			continue
 		
 		var row_data:Dictionary = {}
-		var row_id : String = line[0].strip_edges()
+		var row_id : int = int(line[0].strip_edges())
 		
 		for i in range(1,line.size()):
 			if i< headers.size():
 				var key = headers[i].strip_edges()
 				var value = line[i].strip_edges()
 				row_data[key] = _auto_cast(value)
+		row_data["item_id"] = int(row_id)
 		result[row_id] = row_data
 	file.close()
 	return result

@@ -2,6 +2,7 @@ extends Resource
 
 class_name SaveData
 
+@export var save_name:String = ""
 @export var player_name:String = "Player"
 
 @export var level:int = 1

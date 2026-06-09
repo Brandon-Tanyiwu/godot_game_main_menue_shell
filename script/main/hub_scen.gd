@@ -43,7 +43,7 @@ func _on_back_button_pressed() -> void:
 
 func _on_save_button_pressed() -> void:
 	print("save_game")
-	SaveManager.save_game(current_game,"save_test")
+	SaveManager.save_game(current_game,"save_test.res")
 
 
 func _on_shop_button_pressed() -> void:
