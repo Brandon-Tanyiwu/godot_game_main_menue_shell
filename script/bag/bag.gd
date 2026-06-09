@@ -1,93 +1,51 @@
 extends PanelContainer
 @onready var inventory_system: InventorySystem = $InventorySystem/HBoxContainer/ScrollContainer/GridContainer
 
-var bag_data = SaveManager.current_save.bag
+# 🌟【新增】在内存中提前引用好这 24 个格子的节点，再也不去销毁它们
+var slot_nodes: Array[ItemSlot] = []
 var GRID_SIZE = 24
 
 func _ready() -> void:
+	# 🎯 初始化：只在游戏刚启动/背包第一次载入时，获取这 24 个格子的引用
+	for child in inventory_system.get_children():
+		if child is ItemSlot:
+			slot_nodes.append(child)
+	
+	# 如果编辑器里没拉够格子，代码自动补齐到 24 个（只生成这一次）
+	while slot_nodes.size() < GRID_SIZE:
+		var new_slot = preload("res://scenes/comment/item_slot.tscn").instantiate()
+		inventory_system.add_child(new_slot)
+		slot_nodes.append(new_slot)
+		
+	# 给这 24 个格子死死焊上固定的门牌号
+	for i in range(GRID_SIZE):
+		slot_nodes[i].slot_index = i
+
+	# 首次渲染
 	load_bag()
-	SignalManager.request_add_item.connect(inventory_system.insert_item)
 
 func load_bag() -> void:
-	# 1. 照常清空当前运行时的背包数据
+	var bag_data = SaveManager.current_save.bag
+	
+	# 🎯 核心优化：高阶复用循环
 	for i in range(GRID_SIZE):
-		inventory_system.remove_item(i)
-	
-
-	for slot_key in bag_data:
+		var current_slot_node = slot_nodes[i] # 拿到已经存在的第 i 个格子肉身
+		var slot_key = str(i)
 		
-		var index = int(slot_key)
-		if index < 0 or index >= inventory_system.GRID_SIZE:
-			continue
+		# 看看存档数据里，这个门牌号有没有东西
+		if bag_data.has(slot_key) and bag_data[slot_key] != null:
+			var slot_data = bag_data[slot_key]
+			var bag_item_id = slot_data["item_id"]
 			
-		var slot_data = bag_data[slot_key]
-		
-		# 确保格子里有物品 ID
-		if slot_data == null or not slot_data.has("item_id"):
-			continue
-		var bag_item_id = slot_data["item_id"]
-		if GameDataManager.items.has(bag_item_id):
-			var base_item = GameDataManager.items[bag_item_id]
-			
-			# 如果是独立装备，克隆一份，防止数据污染
-			var bag_item = base_item.duplicate() if base_item.get("unique_instance", false) else base_item
-			
-			var item_num = slot_data.get("item_num", 1)
-			var item_extra = slot_data.get("extra", {}) 
-			
-			inventory_system.insert_item(index, bag_item, item_num, item_extra)
-		
-
-	## 🌟 聪明的自动添加物品函数（自动处理堆叠与溢出）
-func add_item_auto(item: ItemData, amount: int = 1, extra: Dictionary = {}) -> int:
-	var remaining_amount = amount
-	var max_limit = item.max_stack # 假设你在 ItemData 里配置了 max_stack
-	
-	# === 阶段 1：先尝试寻找现有的、没装满的同类物品进行堆叠 ===
-	for i in range(GRID_SIZE):
-		var slot = bag_data[i]
-		if slot != null and slot["item"].item_id == item.item_id:
-			var current_amount = slot["amount"]
-			
-			# 如果这个格子还没满，就把手里的物品往里塞
-			if current_amount < max_limit:
-				var available_space = max_limit - current_amount
-				var amount_to_add = min(remaining_amount, available_space)
+			if GameDataManager.items.has(bag_item_id):
+				var base_item = GameDataManager.items[bag_item_id]
+				var item_num = slot_data.get("item_num", 1)
 				
-				bag_data[i]["amount"] += amount_to_add
-				remaining_amount -= amount_to_add
-				
-				# 数据变了，通知 UI 刷新这个格子
-				inventory_system.insert_item(i,item, amount, extra)
-				
-				# 如果全塞进去了，大功告成，直接返回 0（代表没有溢出残余）
-				if remaining_amount <= 0:
-					return 0
-
-	# === 阶段 2：如果还有剩下的（这就是你说的溢出物），开始找空格子 ===
-	for i in range(GRID_SIZE):
-		if bag_data[i] == null:
-			# 看看剩下的数量是不是一次性能放得下一个新格子
-			var amount_to_place = min(remaining_amount, max_limit)
-			
-			# 放入新格子
-			bag_data[i] = {"item": item, "amount": amount_to_place, "extra": extra}
-			remaining_amount -= amount_to_place
-			
-			# 数据变了，通知 UI 刷新这个格子
-			inventory_system.insert_item(i,item, amount, extra)
-			
-			# 如果刚好塞完了，退出
-			if remaining_amount <= 0:
-				return 0
-				
-	# === 阶段 3：如果走到这一步 remaining_amount 还大于 0，说明背包全满了！ ===
-	print("[背包警告] 背包已满！溢出了 %d 个 %s 无法放入！" % [remaining_amount, item.item_name])
-	
-	# 返回剩余没装下的数量，可以让外面的系统决定是不是要把物品“刷在玩家脚下的地面上”
-	return remaining_amount
-	
-		
+				# 🌟 只刷新这个格子的内容，没有任何节点被销毁或新建！
+				current_slot_node.setup_slot(base_item, item_num) 
+		else:
+			# 🌟 如果数据里这一格是空的，直接让格子“变秃”（清空图片和数字）
+			current_slot_node.clear_slot()
 
 
 func _on_close_button_pressed() -> void:

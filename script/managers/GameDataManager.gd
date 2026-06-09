@@ -12,7 +12,7 @@ func _ready() -> void:
 	print("load csv data")
 	items = _load_csv("res://config/item/item_data.csv")
 	icons = _load_csv("res://config/icon/icon_match.csv")
-	
+	print(items)
 
 func _load_csv(path:String, delimiter:String=",")-> Dictionary:
 	var result:Dictionary = {}
@@ -46,7 +46,7 @@ func _load_csv(path:String, delimiter:String=",")-> Dictionary:
 	file.close()
 	return result
 
-func get_item_data(item_id:String) -> ItemData:
+func get_item_data(item_id:int) -> ItemData:
 	var raw_info = items.get(item_id)
 	var icon_info = icons.get(item_id)
 	if not raw_info:return null

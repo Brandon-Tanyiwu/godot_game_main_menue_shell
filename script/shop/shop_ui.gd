@@ -43,14 +43,18 @@ func update_gold_display() -> void:
 	# 💡 注意：由于当前的 inventory_system 节点变成了“商店货架”，
 	# 玩家真正的金币数据和背包数据通常存放在全局单例中（例如全局的 InventoryManager 或 PlayerData）
 	# 这里请根据你项目里实际存放玩家金币的单例进行修改：
-	# gold_label.text = "金币: " + str(PlayerData.gold)
-	gold_label.text = "金币: --" 
+	gold_label.text = "金币: " + str(SaveManager.current_save.gold)
+
 
 ## 处理商品点击（购买逻辑）
-func _on_shop_item_clicked(item_data: ItemData) -> void:
+func _on_shop_item_clicked(index:int,item_data: ItemData) -> void:
 	if item_data == null:
 		return
-	
+	if item_data.base_price<=SaveManager.current_save.gold:
+		inventory_system.remove_item(index)
+		SignalManager.request_add_item.emit("bag",item_data.item_id,1,item_data.extra)
+		SaveManager.current_save.gold -=item_data.base_price
+		update_gold_display()
 	# 【执行购买】
 	# 1. 检查玩家全局单例中的金币是否足够 (如 if PlayerData.gold < final_price)
 	# 2. 检查玩家【真正的背包组件】是否已满

@@ -3,7 +3,7 @@ extends Control
 class_name ItemSlot
 
 # 点击槽位时向外发出的信号（用于购买、装备、移库等逻辑）
-signal slot_clicked(item_data: ItemData)
+signal slot_clicked(index:int,item_data: ItemData)
 
 # 保留你原有的场景节点映射
 
@@ -21,7 +21,8 @@ var tooltip_scene = preload("res://scenes/comment/item_tooltip.tscn")
 var tooltip: Node = null
 var item_data: ItemData = null
 var current_amount: int = 0
-
+var slot_index:int = -1
+var item_id:int
 func _ready() -> void:
 	# ❗ 关键：确保拦截鼠标事件，否则 _gui_input 和 hover 信号在 Grid 里可能失效
 	mouse_filter = Control.MOUSE_FILTER_STOP 
@@ -41,7 +42,7 @@ func setup_slot(data: ItemData, amount: int = 1, is_shop_mode: bool = false,othe
 		
 	item_data = data
 	current_amount = amount
-	
+	item_id = item_data.item_id
 	# 1. 基础通用信息渲染
 	icon.texture = data.icon
 	icon.show()
@@ -116,4 +117,4 @@ func _gui_input(event: InputEvent):
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if item_data != null:
-				slot_clicked.emit(item_data)
+				slot_clicked.emit(slot_index,item_data)

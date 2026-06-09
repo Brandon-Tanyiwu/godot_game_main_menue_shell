@@ -74,11 +74,17 @@ layout_mode = 2
 text = "状态"
 
 [node name="BottomBar" type="VBoxContainer" parent="." unique_id=1753441066]
-layout_mode = 0
-offset_left = 1033.0
-offset_top = 233.0
-offset_right = 1146.0
-offset_bottom = 309.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -33.0
+offset_bottom = 33.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="SaveButton" type="Button" parent="BottomBar" unique_id=1089750070]
 layout_mode = 2

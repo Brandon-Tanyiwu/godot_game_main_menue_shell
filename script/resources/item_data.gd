@@ -10,6 +10,7 @@ class_name ItemData
 @export var item_id:int
 @export var base_price:int = 100
 @export var price:int = 0
+@export var extra:Dictionary = {}
 @export var max_stack:int = 99
 @export var item_type:String
 @export var x:int

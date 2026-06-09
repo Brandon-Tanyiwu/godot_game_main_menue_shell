@@ -4,7 +4,7 @@ class_name InventorySystem
 @export var slot_scene:PackedScene
 
 # 【新增】当格子被点击时，向外派发信号，方便 ShopUI 监听并触发购买
-signal item_clicked_ext(item_data: ItemData)
+signal item_clicked_ext(index:int,item_data: ItemData)
 
 var grid_size = 24
 enum GridType {DEFAULT,SHOP,EQUIPMENT,WAREHOUSE,BAG}
@@ -22,6 +22,7 @@ func _initialize_grid():
 		var slot:ItemSlot = slot_scene.instantiate()
 		add_child(slot)
 		slot_nodes.append(slot)
+		slot.slot_index = i
 		slot.slot_clicked.connect(_on_slot_clicked)
 
 func update_slot_ui(index:int):
@@ -50,6 +51,6 @@ func remove_item(index:int):
 		inventory_data[index] = null
 		update_slot_ui(index)
 
-func _on_slot_clicked(item_data:ItemData):
+func _on_slot_clicked(index:int,item_data:ItemData):
 	# 【新增】将点击事件及数据向外转发
-	item_clicked_ext.emit(item_data)
+	item_clicked_ext.emit(index,item_data)
