@@ -2,7 +2,6 @@ extends Node
 
 signal shop_refreshed(new_shop_data:ShopData)
 
-const SAVE_PATH = "res://shop_state.config"
 const REFRESH_INTERVAL_SECONDS = 3600
 
 var shop_list = {
@@ -28,22 +27,49 @@ var shop_list = {
 
 var current_shop_data:ShopData
 var last_refresh_timestamp:float=0.0
+var active_save:SaveData
 
 func _ready() -> void:
 	randomize()
 	
-	if !_load_shop_state():
-		print("first_load_shop")
-		force_refresh()
-	else:
-		_check_time_and_refresh()
+	_check_time_and_refresh()
 	var timer = Timer.new()
 	timer.wait_time = 10
 	timer.autostart = true	
 	timer.timeout.connect(_check_time_and_refresh)
 	add_child(timer)
+
+func ensure_shop_state() -> bool:
+	if SaveManager.current_save == null:
+		return false
+	
+	if active_save != SaveManager.current_save:
+		active_save = SaveManager.current_save
+		current_shop_data = null
+		last_refresh_timestamp = 0.0
+	
+	if current_shop_data == null:
+		if !_load_shop_state():
+			print("first_load_shop")
+			force_refresh()
+			return current_shop_data != null
+	
+	_check_time_and_refresh()
+	return current_shop_data != null
 	
 func _check_time_and_refresh()-> void:
+	if SaveManager.current_save == null:
+		return
+	
+	if active_save != SaveManager.current_save:
+		active_save = SaveManager.current_save
+		current_shop_data = null
+	
+	if current_shop_data == null:
+		if !_load_shop_state():
+			force_refresh()
+		return
+	
 	var current_time = Time.get_unix_time_from_system()
 	var time_passed = current_time - last_refresh_timestamp
 	
@@ -53,6 +79,11 @@ func _check_time_and_refresh()-> void:
 		
 
 func force_refresh()-> void:		
+	if SaveManager.current_save == null:
+		push_warning("no current save for shop state")
+		return
+	
+	active_save = SaveManager.current_save
 	last_refresh_timestamp = Time.get_unix_time_from_system()
 	
 	var new_shop = ShopData.new()
@@ -114,41 +145,52 @@ func _generate_random_items(types:Array) -> Array[ItemData]:
 
 
 func _save_shop_state() -> void:
-	var config = ConfigFile.new()
-	config.set_value("shop","last_refresh",last_refresh_timestamp)
-	config.set_value("shop","shop_name",current_shop_data.shop_name)
+	if SaveManager.current_save == null or current_shop_data == null:
+		return
 	
-	config.set_value("shop","keeper_name",current_shop_data.shopkeeper.keeper_name)
-	
-	var item_ids : Array[int] = []
+	var item_ids: Array[int] = []
 	for item in current_shop_data.items:
 		item_ids.append(item.item_id)
-	config.set_value("shop","current_items",item_ids)
-	config.set_value("shop","keeper_portrait",current_shop_data.shopkeeper.portrait)
-	config.set_value("shop","background",current_shop_data.shopkeeper.background)
-	config.save(SAVE_PATH)
+	
+	SaveManager.current_save.shop = {
+		"last_refresh": last_refresh_timestamp,
+		"shop_name": current_shop_data.shop_name,
+		"keeper_name": current_shop_data.shopkeeper.keeper_name,
+		"current_items": item_ids,
+		"keeper_portrait": _get_resource_path(current_shop_data.shopkeeper.portrait),
+		"background": _get_resource_path(current_shop_data.shopkeeper.background)
+	}
 	
 func _load_shop_state()->bool:
-	var config = ConfigFile.new()
-	if config.load(SAVE_PATH) != OK:
-		return false # 没存档
-		
-	last_refresh_timestamp = config.get_value("Shop", "last_refresh", 0.0)
+	if SaveManager.current_save == null:
+		return false
+	
+	var shop_state = SaveManager.current_save.shop
+	if shop_state.is_empty():
+		return false
+	
+	last_refresh_timestamp = float(shop_state.get("last_refresh", 0.0))
 	
 	var loaded_shop = ShopData.new()
-	loaded_shop.shop_name = config.get_value("Shop", "shop_name", "")
+	loaded_shop.shop_name = str(shop_state.get("shop_name", ""))
 	
 	# 还原店员
 	var t_name = loaded_shop.shop_name
 	if t_name:
 		var keeper = ShopKeeperData.new()
-		keeper.name = config.get_value("Shop", "keeper_name", "")
-		keeper.portrait = load(config.get_value("Shop", "keeper_portrait", ""))
-		keeper.background = load(config.get_value("Shop", "background", ""))
+		keeper.keeper_name = str(shop_state.get("keeper_name", ""))
+		var portrait_path = str(shop_state.get("keeper_portrait", ""))
+		var background_path = str(shop_state.get("background", ""))
+		if portrait_path != "":
+			keeper.portrait = load(portrait_path)
+		if background_path != "":
+			keeper.background = load(background_path)
 		loaded_shop.shopkeeper = keeper
+	else:
+		return false
 		
 	# 还原商品
-	var item_ids = config.get_value("Shop", "current_items", [])
+	var item_ids = shop_state.get("current_items", [])
 	var restored_items: Array[ItemData] = []
 	for id in item_ids:
 		var item_data = GameDataManager.get_item_data(id)
@@ -158,3 +200,8 @@ func _load_shop_state()->bool:
 	
 	current_shop_data = loaded_shop
 	return true
+
+func _get_resource_path(resource: Resource) -> String:
+	if resource == null:
+		return ""
+	return resource.resource_path

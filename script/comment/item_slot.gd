@@ -23,6 +23,7 @@ var item_data: ItemData = null
 var current_amount: int = 0
 var slot_index:int = -1
 var item_id:int
+var SlotGritType:String
 func _ready() -> void:
 	# ❗ 关键：确保拦截鼠标事件，否则 _gui_input 和 hover 信号在 Grid 里可能失效
 	mouse_filter = Control.MOUSE_FILTER_STOP 
@@ -35,11 +36,11 @@ func _ready() -> void:
 
 ## 核心融合方法：兼容 商店、背包、仓库
 ## is_shop_mode 为 true 时显示价格，为 false 时显示数量
-func setup_slot(data: ItemData, amount: int = 1, is_shop_mode: bool = false,other_info:Dictionary={}):
+func setup_slot(data: ItemData, amount: int = 1, is_shop_mode: bool = false,other_info:Dictionary={},GridType:String = "default"):
+	
 	if data == null:
 		clear_slot()
-		return
-		
+		return	
 	item_data = data
 	current_amount = amount
 	item_id = item_data.item_id
@@ -50,7 +51,6 @@ func setup_slot(data: ItemData, amount: int = 1, is_shop_mode: bool = false,othe
 	name_label.show()
 	border.color = get_rarity_color(data.rarity)
 	border.show()
-	
 	# 2. 根据所处界面模式，动态分流 UI 展示
 	if is_shop_mode:
 		# 商店模式：显示原价和折后价，隐藏数量
@@ -118,3 +118,34 @@ func _gui_input(event: InputEvent):
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if item_data != null:
 				slot_clicked.emit(slot_index,item_data)
+
+func _get_drag_data(at_position: Vector2) -> Variant:
+	if item_data == null:
+		return null
+	
+	var draw_preview = TextureRect.new()
+	draw_preview.texture = icon.texture
+	draw_preview.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	draw_preview.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	
+	draw_preview.custom_minimum_size = icon.size
+	draw_preview.modulate.a = 0.6
+	
+	set_drag_preview(draw_preview)
+	
+	TooltipManager.hide_item_tooltip()
+	return {
+		"from_type":SlotGritType
+		,"from_index":slot_index
+	}
+
+func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
+	if price_label.is_visible_in_tree():
+		return false
+	return data is Dictionary and data.has("from_type") and data.has("from_index")
+
+func _drop_data(at_position: Vector2, data: Variant) -> void:
+	var from_type = data["from_type"]
+	var from_index = data["from_index"]
+	ItemTransitionManager.move_or_swap_slots(from_type,from_index,SlotGritType,slot_index)
+	SignalManager.refresh_inventory_ui.emit()

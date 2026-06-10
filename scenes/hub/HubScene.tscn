@@ -182,6 +182,8 @@ mouse_filter = 2
 texture = ExtResource("2_u8kby")
 expand_mode = 2
 
+[node name="DropZone" type="CanvasLayer" parent="." unique_id=1595242538]
+
 [connection signal="pressed" from="RightMenu/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="BottomBar/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="BottomBar/BackButton" to="." method="_on_back_button_pressed"]

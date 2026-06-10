@@ -29,7 +29,6 @@ func create_new_save(player_name: String):
 
 func save_game(save_data: SaveData, file_name: String):
 	var err = ResourceSaver.save(save_data, save_dir + file_name)
-	inspect_save_data_dependencies(save_data)
 	if err != OK:
 		print("[存档系统] 保存失败，错误码：", err)
 

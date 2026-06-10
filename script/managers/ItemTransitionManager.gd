@@ -1,12 +1,9 @@
 # InventoryManager.gd (Autoload 单例)
 extends Node
 
-# 📢 当任何数据发生改变时，发出此信号。UI 监听到这个信号后就会执行 load_bag() 或 load_warehouse()
-signal inventory_changed(target_type: String)
-
 # 定义容器的最大格子上限
 const BAG_SIZE = 24
-const WAREHOUSE_SIZE = 96
+const WAREHOUSE_SIZE = 128
 
 func _ready() -> void:
 	SignalManager.request_add_item.connect(add_item)
@@ -197,5 +194,5 @@ func _get_target_info(type: String) -> Dictionary:
 	return {}
 
 # 统一善后：引发 UI 变更通知，或者在这里执行自动存档
-func _finalize_change(type: String):
-	inventory_changed.emit(type)
+func _finalize_change(type):
+	SignalManager.refresh_inventory_ui.emit()

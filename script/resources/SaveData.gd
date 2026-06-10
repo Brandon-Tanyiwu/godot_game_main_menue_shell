@@ -15,6 +15,10 @@ class_name SaveData
 
 @export var bag:Dictionary = {}
 
+@export var warehouse:Dictionary = {}
+
+@export var shop:Dictionary = {}
+
 @export var equipped_items = []
 
 @export var unlocked_skills:Array = []

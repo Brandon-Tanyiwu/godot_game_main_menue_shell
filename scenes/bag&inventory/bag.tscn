@@ -4,35 +4,43 @@
 [ext_resource type="Script" uid="uid://bpwpk2xftnfad" path="res://script/bag/bag.gd" id="1_usfjo"]
 
 [node name="BagPanel" type="PanelContainer" unique_id=868357099]
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -72.0
-grow_horizontal = 0
+anchors_preset = -1
+anchor_left = 0.30800003
+anchor_top = 0.066
+anchor_right = 0.614
+anchor_bottom = 0.943
+offset_left = 0.18395996
+offset_top = 0.23199844
+offset_right = -0.32800293
+offset_bottom = -0.06402588
+grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_usfjo")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1226537962]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=234794305]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1226537962]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 alignment = 2
 
-[node name="CloseButton" type="Button" parent="HBoxContainer" unique_id=1268128111]
+[node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1268128111]
 layout_mode = 2
 size_flags_horizontal = 8
 text = "关闭背包"
 
-[node name="InventorySystem" parent="." unique_id=1107845013 instance=ExtResource("1_e0604")]
+[node name="InventorySystem" parent="VBoxContainer" unique_id=1107845013 instance=ExtResource("1_e0604")]
 layout_mode = 2
 
-[node name="GridContainer" parent="InventorySystem/HBoxContainer/ScrollContainer" parent_id_path=PackedInt32Array(1107845013, 1119925966) index="0" unique_id=327711507]
+[node name="GridContainer" parent="VBoxContainer/InventorySystem/HBoxContainer/ScrollContainer" parent_id_path=PackedInt32Array(1107845013, 1119925966) index="0" unique_id=327711507]
+size_flags_horizontal = 1
 columns = 6
 current_grid_type = 4
 
-[connection signal="pressed" from="HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
 
-[editable path="InventorySystem"]
+[editable path="VBoxContainer/InventorySystem"]

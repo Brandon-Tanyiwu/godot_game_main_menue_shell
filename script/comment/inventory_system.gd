@@ -7,8 +7,8 @@ class_name InventorySystem
 signal item_clicked_ext(index:int,item_data: ItemData)
 
 var grid_size = 24
-enum GridType {DEFAULT,SHOP,EQUIPMENT,WAREHOUSE,BAG}
-@export var current_grid_type: GridType = GridType.DEFAULT
+enum GridType {default,shop,equipment,warehouse,bag}
+@export var current_grid_type: GridType = GridType.default
 var inventory_data:Array = []
 var slot_nodes:Array[ItemSlot] = []
 
@@ -30,7 +30,7 @@ func update_slot_ui(index:int):
 	var data = inventory_data[index]
 	
 	if data != null:
-		var is_shop = (current_grid_type == GridType.SHOP)
+		var is_shop = (current_grid_type == GridType.shop)
 		var _extra_data = data.get("extra",{})
 		slot.setup_slot(data["item"], data["amount"],is_shop,_extra_data)
 		

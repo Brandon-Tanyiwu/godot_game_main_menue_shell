@@ -24,7 +24,8 @@ func _on_skill_tree_button_pressed() -> void:
 	print("open_skill_tree")
 	
 func _on_inventory_button_pressed() -> void:
-	print("open_inventory")
+	SceneManager.open_scene("res://scenes/bag&inventory/inventory.tscn")
+	SceneManager.open_scene("res://scenes/bag&inventory/bag.tscn")
 
 func _on_equipment_button_pressed() -> void:
 	print("open_equipment") 
@@ -32,7 +33,7 @@ func _on_equipment_button_pressed() -> void:
 
 func _on_ware_house_button_pressed() -> void:
 	print("open_warehouse")
-	SceneManager.change_scene("res://scenes/bag&inventory/bag.tscn")
+	SceneManager.open_scene("res://scenes/bag&inventory/bag.tscn")
 
 
 func _on_back_button_pressed() -> void:

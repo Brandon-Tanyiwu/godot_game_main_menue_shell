@@ -1,10 +1,9 @@
 extends PanelContainer
-@onready var inventory_system: InventorySystem = $InventorySystem/HBoxContainer/ScrollContainer/GridContainer
-
+@onready var inventory_system: InventorySystem =$VBoxContainer/InventorySystem/HBoxContainer/ScrollContainer/GridContainer
 # 🌟【新增】在内存中提前引用好这 24 个格子的节点，再也不去销毁它们
 var slot_nodes: Array[ItemSlot] = []
 var GRID_SIZE = 24
-
+var gridtype = "bag"
 func _ready() -> void:
 	# 🎯 初始化：只在游戏刚启动/背包第一次载入时，获取这 24 个格子的引用
 	for child in inventory_system.get_children():
@@ -20,9 +19,11 @@ func _ready() -> void:
 	# 给这 24 个格子死死焊上固定的门牌号
 	for i in range(GRID_SIZE):
 		slot_nodes[i].slot_index = i
+		slot_nodes[i].SlotGritType=gridtype
 
 	# 首次渲染
 	load_bag()
+	SignalManager.refresh_inventory_ui.connect(load_bag)
 
 func load_bag() -> void:
 	var bag_data = SaveManager.current_save.bag
@@ -42,12 +43,12 @@ func load_bag() -> void:
 				var item_num = slot_data.get("item_num", 1)
 				
 				# 🌟 只刷新这个格子的内容，没有任何节点被销毁或新建！
-				current_slot_node.setup_slot(base_item, item_num) 
+				current_slot_node.setup_slot(base_item, item_num,false,base_item.extra) 
 		else:
 			# 🌟 如果数据里这一格是空的，直接让格子“变秃”（清空图片和数字）
 			current_slot_node.clear_slot()
 
 
 func _on_close_button_pressed() -> void:
-	hide()
+	queue_free()
 	SceneManager.change_scene("res://scenes/hub/HubScene.tscn")

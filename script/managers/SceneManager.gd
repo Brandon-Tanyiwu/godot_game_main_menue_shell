@@ -9,6 +9,12 @@ func _ready() -> void:
 func change_scene(path:String)-> void:
 	call_deferred("_deferred_change_scene",path)
 
+func open_scene(path:String):
+	for node in get_tree().root.get_children():
+		if node.scene_file_path == path:
+			return
+	var scene = load(path).instantiate()
+	get_tree().root.add_child(scene)
 
 func _deferred_change_scene(path:String):
 	

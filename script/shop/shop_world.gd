@@ -11,6 +11,7 @@ extends Node2D
 
 func _ready() -> void:
 	ShopRefreshManager.shop_refreshed.connect(load_shop)
+	ShopRefreshManager.ensure_shop_state()
 	load_shop(ShopRefreshManager.current_shop_data)
 	npc_dialog.hide()
 	shop_ui.hide()
