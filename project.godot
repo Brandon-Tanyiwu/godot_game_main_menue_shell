@@ -25,6 +25,7 @@ GameDataManager="*uid://cqmje3qpgpa2w"
 ShopRefreshManager="*uid://x8nlcyqwo63i"
 SignalManager="*uid://d2ilvgvcrloaw"
 ItemTransitionManager="*uid://b3at8ugb0vv0d"
+MapManager="*uid://b7b2n8n3cs2k5"
 
 [editor]
 

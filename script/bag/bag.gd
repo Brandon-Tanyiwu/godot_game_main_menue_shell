@@ -1,5 +1,6 @@
 extends PanelContainer
-@onready var inventory_system: InventorySystem =$VBoxContainer/InventorySystem/HBoxContainer/ScrollContainer/GridContainer
+@onready var inventory_system: InventorySystem = $VBoxContainer/InventorySystem
+
 # 🌟【新增】在内存中提前引用好这 24 个格子的节点，再也不去销毁它们
 var slot_nodes: Array[ItemSlot] = []
 var GRID_SIZE = 24
@@ -51,4 +52,3 @@ func load_bag() -> void:
 
 func _on_close_button_pressed() -> void:
 	queue_free()
-	SceneManager.change_scene("res://scenes/hub/HubScene.tscn")

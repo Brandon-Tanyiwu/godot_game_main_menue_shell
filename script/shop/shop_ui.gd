@@ -5,7 +5,7 @@ extends Control
 @onready var close_button: Button = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CloseButton
 
 # 核心：通用的网格组件
-@onready var inventory_system:InventorySystem = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/InventorySystem/HBoxContainer/ScrollContainer/GridContainer
+@onready var inventory_system: InventorySystem = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/InventorySystem
 var shop_data: ShopData
 
 func _ready() -> void:

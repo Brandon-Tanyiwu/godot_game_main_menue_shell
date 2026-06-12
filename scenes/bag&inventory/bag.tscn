@@ -35,11 +35,7 @@ text = "关闭背包"
 
 [node name="InventorySystem" parent="VBoxContainer" unique_id=1107845013 instance=ExtResource("1_e0604")]
 layout_mode = 2
-
-[node name="GridContainer" parent="VBoxContainer/InventorySystem/HBoxContainer/ScrollContainer" parent_id_path=PackedInt32Array(1107845013, 1119925966) index="0" unique_id=327711507]
-size_flags_horizontal = 1
-columns = 6
-current_grid_type = 4
+columns = 5
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
 

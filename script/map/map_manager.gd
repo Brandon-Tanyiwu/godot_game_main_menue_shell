@@ -1,5 +1,5 @@
 
-class_name MapManager
+class_name MapManagers
 extends Node
 
 @export var map_view:MapView

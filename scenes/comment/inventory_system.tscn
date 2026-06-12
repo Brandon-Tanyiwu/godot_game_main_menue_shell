@@ -3,8 +3,7 @@
 [ext_resource type="Script" uid="uid://c0afqms2u0kel" path="res://script/comment/inventory_system.gd" id="1_0gvdo"]
 [ext_resource type="PackedScene" uid="uid://cb1lgvas4bb1y" path="res://scenes/comment/item_slot.tscn" id="2_62qxa"]
 
-[node name="InventorySystem" type="Control" unique_id=1107845013]
-layout_mode = 3
+[node name="InventorySystem" type="GridContainer" unique_id=1337647449]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -12,24 +11,5 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=356753324]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer" unique_id=1119925966]
-layout_mode = 2
-size_flags_horizontal = 3
-horizontal_scroll_mode = 0
-
-[node name="GridContainer" type="GridContainer" parent="HBoxContainer/ScrollContainer" unique_id=327711507]
-layout_direction = 4
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
 script = ExtResource("1_0gvdo")
 slot_scene = ExtResource("2_62qxa")
