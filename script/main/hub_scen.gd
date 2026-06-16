@@ -57,8 +57,8 @@ func _on_shop_button_pressed() -> void:
 
 func _on_game_1_pressed() -> void:
 	print("go map1")
-	SceneManager.change_scene("res://scenes/map/map_manager.tscn")
+	SceneManager.change_scene("res://scenes/map/gebulin_map.tscn")
 
 func _on_game_2_pressed() -> void:
 	print("go map2")
-	SceneManager.change_scene("res://scenes/map/map_manager.tscn")
+	SceneManager.change_scene("res://scenes/map/civilisation_map.tscn")

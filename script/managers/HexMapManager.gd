@@ -5,7 +5,11 @@ var astar:AStar2D = AStar2D.new()
 var _coord_to_id:Dictionary = {}
 var _id_to_coord:Dictionary = {}
 var _next_id:int = 0
-
+enum FogState {
+	UNEXPLORED, # 0: 未探索（全黑，连地形都看不见）
+	EXPLORED,   # 1: 已探索但没视野（半透明/灰暗，能看地形，看不到敌军动态）
+	VISIBLE     # 2: 当前可见（完全亮起）
+	}
 const HEX_DIRECTIONS = [
 	Vector2i(1,0),Vector2i(1,-1),Vector2i(0,-1)
 	,Vector2i(-1,0),Vector2i(-1,1),Vector2i(0,1)
@@ -16,16 +20,19 @@ class CellData extends RefCounted:
 	var terrain_type: String    # 地形类型: "grass", "forest", "mountain", "water"
 	var movement_cost: float = 1.0 # 移动消耗权重
 	var is_passable: bool = true   # 是否可通过
+	var fog_state: FogState = FogState.UNEXPLORED
+	
 	
 func generate_hex_map(width: int,height:int) -> void:
 	_clear_system()
 	
-	for r in range(height):
-		var r_offset = r >> 1
-		for q in range(-r_offset,width-r_offset):
+	##平顶六边形先width,后循环height，尖顶六边形反之
+	for q in range(width):
+		var q_offset = q >> 1
+		for r in range(-q_offset,height-q_offset):
 			var coord = Vector2i(q,r)
 			var cell = CellData.new()
-			cell.coordinate = coord
+			cell.coord = coord
 			
 			var rand = randf()
 			if rand<=0.15:
@@ -44,13 +51,13 @@ func generate_hex_map(width: int,height:int) -> void:
 			astar.add_point(id,world_pos_approx,cell.movement_cost)
 	for coord in world_cells:
 		var current_id = _coord_to_id[coord]
-		if not world_cells[coord].is_possable:
+		if not world_cells[coord].is_passable:
 			astar.set_point_disabled(current_id,true)
 		for dir in HEX_DIRECTIONS:
 			var neighbor_coord = coord +dir
 			if world_cells.has(neighbor_coord):
 				var neighbor_id = _coord_to_id[neighbor_coord]
-				if not astar.are_connect_points(current_id,neighbor_id):
+				if not astar.are_points_connected(current_id,neighbor_id):
 					astar.connect_points(current_id,neighbor_id)
 	SignalManager.map_generation_completed.emit(world_cells)
 

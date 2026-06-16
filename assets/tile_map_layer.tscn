@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://bm4vqjq5qor2c"]
-
-[ext_resource type="TileSet" uid="uid://cx5n816g37pm7" path="res://assets/TileMap.tres" id="1_6k4f3"]
-[ext_resource type="Script" uid="uid://cfmi5kc6qujc2" path="res://script/map/hex_map_layer.gd" id="2_dpo1k"]
-
-[node name="TileMapLayer" type="TileMapLayer" unique_id=54848084]
-tile_set = ExtResource("1_6k4f3")
-script = ExtResource("2_dpo1k")

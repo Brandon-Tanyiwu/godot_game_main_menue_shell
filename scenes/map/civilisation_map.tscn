@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bm4vqjq5qor2c"]
+
+[ext_resource type="Script" uid="uid://b14p0yafd24sc" path="res://script/map/civilisation_map.gd" id="1_870hy"]
+[ext_resource type="Script" uid="uid://y1jc8p7gqgrj" path="res://script/map/map_camera.gd" id="2_0i3tc"]
+[ext_resource type="PackedScene" uid="uid://1jw43s6gwmu5" path="res://scenes/map/hex_map.tscn" id="2_be5h7"]
+[ext_resource type="TileSet" uid="uid://cx5n816g37pm7" path="res://assets/TileMap.tres" id="4_0i3tc"]
+
+[node name="CivilisationMap" type="Node2D" unique_id=1945724539]
+script = ExtResource("1_870hy")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=273559226]
+limit_left = -30
+limit_top = -55
+limit_right = 1180
+limit_bottom = 686
+script = ExtResource("2_0i3tc")
+
+[node name="HexMap" parent="." unique_id=1494672603 instance=ExtResource("2_be5h7")]
+texture_filter = 1
+texture_repeat = 1
+
+[node name="FogLayer" type="TileMapLayer" parent="." unique_id=1772148889]
+tile_set = ExtResource("4_0i3tc")
