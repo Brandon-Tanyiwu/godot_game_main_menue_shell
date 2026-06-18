@@ -52,3 +52,37 @@ func _reveal_cell(target_coord: Vector2i) -> void:
 		cell.fog_state = HexMapManager.FogState.VISIBLE
 		# 表现层：直接把 FogLayer 这一格的砖块擦除掉 (erase_cell)，底下的地形就露出来了！
 		fog_layer.erase_cell(target_coord)
+
+##缓存读取函数
+func _has_valid_save_data()->bool:
+	if SaveManager.current_save == null:
+		return false
+	var map_info = SaveManager.current_save.hex_map_info
+	return map_info!= null and not map_info.is_empty()
+
+##缓存数据恢复
+func _load_map_from_save() -> Dictionary:
+	var raw_data :Dictionary = SaveManager.current_save.hex_map_info
+	var processed_data: Dictionary = {}
+	
+	for key in raw_data:
+		var coord:Vector2i
+		if key is String:
+			coord = _parse_string_to_vector2i(key)
+		else :
+			coord = key
+		processed_data[coord] = raw_data[key]
+	return processed_data
+
+func _write_to_save(data:Dictionary) -> void:
+	if SaveManager.current_save != null:
+		SaveManager.current_save.hex_map_info = data
+
+func _parse_string_to_vector2i(key:String) ->Vector2i:
+	key = key.replace("Vector2i","").replace("(","").replace(")","")
+	var parts = key.split(",")
+	
+	if parts.size() == 2:
+		return Vector2i(int(parts[0]),int(parts[1]))
+	push_error("can't parse vector2i index")
+	return Vector2i.ZERO

@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://b25t1uugfcmo2"
+
+[deps]
+
+files=["res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.hp.translation", "res://config/tilemap/tiledata.mp.translation", "res://config/tilemap/tiledata.action.translation", "res://config/tilemap/tiledata.passable.translation"]
+
+source_file="res://config/tilemap/tiledata.csv"
+dest_files=["res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.hp.translation", "res://config/tilemap/tiledata.mp.translation", "res://config/tilemap/tiledata.action.translation", "res://config/tilemap/tiledata.passable.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

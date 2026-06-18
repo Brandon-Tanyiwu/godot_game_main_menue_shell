@@ -23,4 +23,6 @@ class_name SaveData
 
 @export var unlocked_skills:Array = []
 
+@export var hex_map_info: Dictionary = {}
+
 @export var current_stage:int = 1

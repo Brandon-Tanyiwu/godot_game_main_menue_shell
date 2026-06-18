@@ -16,14 +16,16 @@ const HEX_DIRECTIONS = [
 ]
 # 内部类：定义单个六边形的数据结构
 class CellData extends RefCounted:
+	var id: int #地形id
 	var coord: Vector2i         # 轴向坐标 Vector2i(q, r)
-	var terrain_type: String    # 地形类型: "grass", "forest", "mountain", "water"
+	var terrain_type: String    # 地形名称: "grass", "forest", "mountain", "water"
 	var movement_cost: float = 1.0 # 移动消耗权重
 	var is_passable: bool = true   # 是否可通过
 	var fog_state: FogState = FogState.UNEXPLORED
 	
 	
 func generate_hex_map(width: int,height:int) -> void:
+		
 	_clear_system()
 	
 	##平顶六边形先width,后循环height，尖顶六边形反之
@@ -36,14 +38,11 @@ func generate_hex_map(width: int,height:int) -> void:
 			
 			var rand = randf()
 			if rand<=0.15:
-				cell.terrain_type = "fullforest"
-				cell.is_passable = false
-				cell.movement_cost = 999
+				cell.id=0
 			elif  rand <0.35:
-				cell.terrain_type = "lowforest"
-				cell.movement_cost = 2
+				cell.id=3
 			else:
-				cell.terrain_type = "grass"
+				cell.id=5
 			world_cells[coord] = cell
 			
 			var id = _get_or_create_id(coord)

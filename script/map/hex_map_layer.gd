@@ -1,9 +1,6 @@
 extends TileMapLayer
 
-var ATLAS_MAP:Dictionary = {"grass":Vector2i(0,0)
-,"lowforest":Vector2i(1,0)
-,"fullforest":Vector2i(2,0)
-}
+
 const source_id = 2 
 
 func _ready() -> void:
@@ -13,9 +10,9 @@ func _on_data_layer_ready(cells_data:Dictionary)->void:
 	clear()
 	for coord in cells_data:
 		var cell = cells_data[coord] as HexMapManager.CellData
-		var atlas_coord = ATLAS_MAP.get(cell.terrain_type,Vector2i(0,0))
-		print(cell,"  ",atlas_coord)
-		set_cell(coord,source_id,atlas_coord)
+		var cell_info = GameDataManager.get_terrain_info(cell.id)
+		#print(cell,"  ",atlas_coord)
+		set_cell(coord,source_id,Vector2i(cell_info["cell_source_x"],cell_info["cell_source_y"]))
 	print("layer completed")
 
 func _unhandled_input(event: InputEvent) -> void:

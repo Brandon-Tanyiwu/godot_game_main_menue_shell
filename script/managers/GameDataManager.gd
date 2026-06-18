@@ -8,10 +8,13 @@ const icon_size = 32
 var items:Dictionary = {}
 var skills:Dictionary = {}
 var icons:Dictionary = {}
+var tiles:Dictionary = {}
+
 func _ready() -> void:
 	print("load csv data")
 	items = _load_csv("res://config/item/item_data.csv")
 	icons = _load_csv("res://config/icon/icon_match.csv")
+	tiles = _load_csv("res://config/tilemap/tiledata.csv")
 func _load_csv(path:String, delimiter:String=",")-> Dictionary:
 	var result:Dictionary = {}
 	
@@ -40,14 +43,14 @@ func _load_csv(path:String, delimiter:String=",")-> Dictionary:
 				var key = headers[i].strip_edges()
 				var value = line[i].strip_edges()
 				row_data[key] = _auto_cast(value)
-		row_data["item_id"] = int(row_id)
+		row_data["id"] = int(row_id)
 		result[row_id] = row_data
 	file.close()
 	return result
 
-func get_item_data(item_id:int) -> ItemData:
-	var raw_info = items.get(item_id)
-	var icon_info = icons.get(item_id)
+func get_item_data(id:int) -> ItemData:
+	var raw_info = items.get(id)
+	var icon_info = icons.get(id)
 	if not raw_info:return null
 	
 	var item = ItemData.new()
@@ -66,6 +69,15 @@ func get_item_data(item_id:int) -> ItemData:
 	)
 	item.icon = atlas_texture
 	return item
+##获取地形资源
+func get_terrain_info(id:int) ->Dictionary:
+	if tiles.has(id):
+		return tiles[id]
+	push_warning("trerrain id not registed")
+	return {}
+	
+	
+	
 func _auto_cast(val:String)->Variant:
 	match val.to_lower():
 		"":
