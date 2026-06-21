@@ -9,7 +9,7 @@ var items:Dictionary = {}
 var skills:Dictionary = {}
 var icons:Dictionary = {}
 var tiles:Dictionary = {}
-
+var events:Dictionary = {}
 func _ready() -> void:
 	print("load csv data")
 	items = _load_csv("res://config/item/item_data.csv")

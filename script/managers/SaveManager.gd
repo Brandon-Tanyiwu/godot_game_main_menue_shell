@@ -32,6 +32,9 @@ func save_game(save_data: SaveData, file_name: String):
 	if err != OK:
 		print("[存档系统] 保存失败，错误码：", err)
 
+func delete_map(save_data:SaveData):
+	if save_data:
+		save_data.hex_map_info.clear()
 
 func load_game(file_name: String):
 	var path = save_dir + file_name

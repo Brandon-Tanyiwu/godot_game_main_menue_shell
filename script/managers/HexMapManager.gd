@@ -22,42 +22,87 @@ class CellData extends RefCounted:
 	var movement_cost: float = 1.0 # 移动消耗权重
 	var is_passable: bool = true   # 是否可通过
 	var fog_state: FogState = FogState.UNEXPLORED
-	
-	
-func generate_hex_map(width: int,height:int) -> void:
+	var event_id:int
+	func _init(runtime_data: Dictionary, csv_config: Dictionary) -> void:
+		# 先行注入坐标和事件等运行时变动数据
+		self.coord = runtime_data.get("coord", Vector2i.ZERO)
+		self.event_id = runtime_data.get("event_id", 0)
 		
-	_clear_system()
+		# 自动对齐并注入 CSV 的静态配置数据
+		for key in csv_config:
+			if key in self:
+				self.set(key, csv_config[key])
+
+
+var map_save :Array[Dictionary] = []
+var map_list:Dictionary
+var event_list:Dictionary
+
+func _ready() -> void:
+	map_list = GameDataManager.tiles
+	event_list = GameDataManager.events
 	
-	##平顶六边形先width,后循环height，尖顶六边形反之
+func create_random_map(width:int,height:int,seed_val:int)->Array:
+	var noise = FastNoiseLite.new()
+	noise.seed = seed_val
+	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
+	noise.frequency = 0.06
 	for q in range(width):
 		var q_offset = q >> 1
 		for r in range(-q_offset,height-q_offset):
 			var coord = Vector2i(q,r)
-			var cell = CellData.new()
-			cell.coord = coord
-			
-			var rand = randf()
-			if rand<=0.15:
-				cell.id=0
-			elif  rand <0.35:
-				cell.id=3
-			else:
-				cell.id=5
-			world_cells[coord] = cell
-			
-			var id = _get_or_create_id(coord)
-			var world_pos_approx = _axial_to_pixel(coord)
-			astar.add_point(id,world_pos_approx,cell.movement_cost)
+			var n_val = noise.get_noise_2d(float(q),float(r))
+			var final_type :int
+			var final_event:int = 1
+			for zone_id in map_list:
+				var zone=map_list[zone_id]
+				print(zone["priority"])
+				if n_val<=zone["priority"]:
+					print(n_val,":",zone["priority"])
+					final_type = zone["id"]
+			#if not final_type:
+				#final_type = 1
+				
+			for event in event_list:
+				if n_val<=event["priority"]:
+					final_event = event["id"]
+			if not final_event:
+				pass
+				
+			map_save.append({"coord":coord,"map_id":final_type,"event_id":final_event})
+	return map_save
+
+func generate_hex_map(raw_map_data:Array[Dictionary]) -> void:
+		
+	_clear_system()
+	##平顶六边形先width,后循环height，尖顶六边形反之
+	# 1. 第一遍循环：构建运行时 CellData 实体、精简数据归档、注册 A* 航点
+	for data in raw_map_data:
+		var coord = data["coord"]
+		var map_id = data["map_id"]
+		var csv_config = GameDataManager.tiles[map_id] 
+	
+		var cell = CellData.new(data, csv_config)
+		
+		# 依据地形 ID 属性映射具体通过性（可按需改为读取配置表单例）
+		world_cells[coord] = cell
+		var point_id = _get_or_create_id(coord)
+		var world_pos_approx = _axial_to_pixel(coord)
+		astar.add_point(point_id, world_pos_approx, cell.movement_cost)
+		
+	# 2. 第二遍循环：双向打通 A* 拓扑网络并阻断障碍物
 	for coord in world_cells:
 		var current_id = _coord_to_id[coord]
 		if not world_cells[coord].is_passable:
-			astar.set_point_disabled(current_id,true)
+			astar.set_point_disabled(current_id, true)
+			
 		for dir in HEX_DIRECTIONS:
-			var neighbor_coord = coord +dir
+			var neighbor_coord = coord + dir
 			if world_cells.has(neighbor_coord):
 				var neighbor_id = _coord_to_id[neighbor_coord]
-				if not astar.are_points_connected(current_id,neighbor_id):
-					astar.connect_points(current_id,neighbor_id)
+				if not astar.are_points_connected(current_id, neighbor_id):
+					astar.connect_points(current_id, neighbor_id)
+					
 	SignalManager.map_generation_completed.emit(world_cells)
 
 func get_hex_distance(start:Vector2i,end:Vector2i)->int:

@@ -6,10 +6,10 @@ uid="uid://b25t1uugfcmo2"
 
 [deps]
 
-files=["res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.hp.translation", "res://config/tilemap/tiledata.mp.translation", "res://config/tilemap/tiledata.action.translation", "res://config/tilemap/tiledata.passable.translation"]
+files=["res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.hp.translation", "res://config/tilemap/tiledata.mp.translation", "res://config/tilemap/tiledata.action.translation", "res://config/tilemap/tiledata.passable.translation", "res://config/tilemap/tiledata.priority.translation"]
 
 source_file="res://config/tilemap/tiledata.csv"
-dest_files=["res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.hp.translation", "res://config/tilemap/tiledata.mp.translation", "res://config/tilemap/tiledata.action.translation", "res://config/tilemap/tiledata.passable.translation"]
+dest_files=["res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.cell.translation", "res://config/tilemap/tiledata.hp.translation", "res://config/tilemap/tiledata.mp.translation", "res://config/tilemap/tiledata.action.translation", "res://config/tilemap/tiledata.passable.translation", "res://config/tilemap/tiledata.priority.translation"]
 
 [params]
 
