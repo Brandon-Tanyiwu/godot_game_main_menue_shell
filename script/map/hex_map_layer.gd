@@ -23,6 +23,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 			if HexMapManager.world_cells.has(clicked_hex_coord):
 				var cell_data = HexMapManager.world_cells[clicked_hex_coord]
-				print("click hex :",clicked_hex_coord,cell_data.terrain_type)
+				print("click hex :",clicked_hex_coord,cell_data.id,cell_data.event_id)
 				SignalManager.hex_cell_clicked.emit(clicked_hex_coord,cell_data)
 			

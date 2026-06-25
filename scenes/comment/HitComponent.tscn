@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dxgpou4pnnjye"]
+
+[ext_resource type="Script" uid="uid://db4yyfvsha43l" path="res://Script/Component/hit_component.gd" id="1_f07pa"]
+
+[node name="HitComponent" type="Area2D" unique_id=524924466]
+script = ExtResource("1_f07pa")
+damage = null
+knockback_force = null
+team = null

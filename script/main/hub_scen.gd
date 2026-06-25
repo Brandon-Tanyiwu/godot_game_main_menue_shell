@@ -62,3 +62,14 @@ func _on_game_1_pressed() -> void:
 func _on_game_2_pressed() -> void:
 	print("go map2")
 	SceneManager.change_scene("res://scenes/map/civilisation_map.tscn")
+
+
+func _on_stage_button_pressed() -> void:
+	print("open user info") ##pass # Replace with function body.
+	SceneManager.open_scene("res://scenes/comment/player_tooltip.tscn")
+
+
+func _on_test_button_pressed() -> void:
+	SaveManager.current_save.attack+=1
+	print(SaveManager.current_save.attack)
+	SignalManager.player_info_change.emit()

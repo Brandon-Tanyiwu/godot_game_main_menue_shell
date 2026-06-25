@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://dex48i882qqnu"]
 
 [ext_resource type="Script" uid="uid://t2ghoukajnxs" path="res://script/main/hub_scen.gd" id="1_r21yw"]
+[ext_resource type="Texture2D" uid="uid://dlsma4h5cxuqq" path="res://resource/background/orig.png" id="2_a07jy"]
 [ext_resource type="Texture2D" uid="uid://dd6eugqligwrq" path="res://resource/ui/forest_pass.png" id="2_hoyx8"]
-[ext_resource type="Texture2D" uid="uid://cpt6tm3tmvvh5" path="res://icon.svg" id="2_u8kby"]
+[ext_resource type="Texture2D" uid="uid://4cawlyuf2dm1" path="res://resource/ui/PastelUIFree.png" id="4_vnrh1"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_u8kby"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_aycyq"]
+atlas = ExtResource("4_vnrh1")
+region = Rect2(183, 176, 53.329865, 15.077026)
 
 [node name="HubScen" type="Control" unique_id=468095272]
 layout_mode = 3
@@ -15,12 +18,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_r21yw")
 
-[node name="Sprite2D" type="TextureRect" parent="." unique_id=1706825578]
+[node name="Sprite2D" type="TextureRect" parent="." unique_id=373358677]
 layout_mode = 1
-offset_right = 1.0
-offset_bottom = 1.0
+offset_left = -14.0
+offset_top = -19.000002
+offset_right = -13.0
+offset_bottom = -18.000002
 scale = Vector2(1194.9999, 691)
-texture = SubResource("CanvasTexture_u8kby")
+texture = ExtResource("2_a07jy")
+expand_mode = 1
 
 [node name="TopBar" type="HBoxContainer" parent="." unique_id=1435350342]
 layout_mode = 1
@@ -123,12 +129,13 @@ text = "技能"
 
 [node name="MapIcon" type="HBoxContainer" parent="." unique_id=1596111145]
 layout_mode = 0
-offset_left = 151.0
-offset_top = 90.0
-offset_right = 983.0
+offset_left = 496.0
+offset_top = 421.0
+offset_right = 675.0
 offset_bottom = 557.0
 
 [node name="Game1" type="Button" parent="MapIcon" unique_id=2016836498]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -176,15 +183,25 @@ text = "深渊"
 horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="MapIcon/Game2/VBoxContainer" unique_id=1875607920]
+texture_filter = 1
+texture_repeat = 2
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
-texture = ExtResource("2_u8kby")
+texture = SubResource("AtlasTexture_aycyq")
 expand_mode = 2
 
 [node name="DropZone" type="CanvasLayer" parent="." unique_id=1595242538]
 
+[node name="TestButton" type="Button" parent="." unique_id=359375985]
+layout_mode = 0
+offset_left = 1038.0
+offset_top = 25.0
+offset_right = 1148.0
+offset_bottom = 93.0
+
 [connection signal="pressed" from="RightMenu/ShopButton" to="." method="_on_shop_button_pressed"]
+[connection signal="pressed" from="RightMenu/StageButton" to="." method="_on_stage_button_pressed"]
 [connection signal="pressed" from="BottomBar/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="BottomBar/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/WareHouseButton" to="." method="_on_ware_house_button_pressed"]
@@ -193,3 +210,4 @@ expand_mode = 2
 [connection signal="pressed" from="HBoxContainer/SkillTreeButton" to="." method="_on_skill_tree_button_pressed"]
 [connection signal="pressed" from="MapIcon/Game1" to="." method="_on_game_1_pressed"]
 [connection signal="pressed" from="MapIcon/Game2" to="." method="_on_game_2_pressed"]
+[connection signal="pressed" from="TestButton" to="." method="_on_test_button_pressed"]

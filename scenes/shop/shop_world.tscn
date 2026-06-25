@@ -58,9 +58,8 @@ offset_right = 7.0
 offset_bottom = -1.0
 mouse_filter = 2
 
-[node name="GridContainer" parent="CanvasLayer/ShopUi/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/InventorySystem/HBoxContainer/ScrollContainer" parent_id_path=PackedInt32Array(1302069309, 1107845013, 1119925966) index="0" unique_id=327711507]
-columns = 8
-current_grid_type = 1
+[node name="InventorySystem" parent="CanvasLayer/ShopUi/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" parent_id_path=PackedInt32Array(1302069309, 672066778) index="1" unique_id=1107845013]
+columns = 5
 
 [node name="NpcDialog" parent="CanvasLayer" unique_id=608552412 instance=ExtResource("4_fvctj")]
 visible = false

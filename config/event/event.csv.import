@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bkcavb45iqjck"
+
+[deps]
+
+files=["res://config/event/event.event.translation", "res://config/event/event.food.translation", "res://config/event/event.hp.translation", "res://config/event/event.attack.translation", "res://config/event/event.priority.translation", "res://config/event/event.tooltip.translation"]
+
+source_file="res://config/event/event.csv"
+dest_files=["res://config/event/event.event.translation", "res://config/event/event.food.translation", "res://config/event/event.hp.translation", "res://config/event/event.attack.translation", "res://config/event/event.priority.translation", "res://config/event/event.tooltip.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

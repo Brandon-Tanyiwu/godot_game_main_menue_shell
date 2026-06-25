@@ -8,12 +8,16 @@
 [node name="CivilisationMap" type="Node2D" unique_id=1945724539]
 script = ExtResource("1_870hy")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=273559226]
-limit_left = -2
-limit_top = 4
-limit_right = 1150
-limit_bottom = 653
+[node name="Camera2D" type="Camera2D" parent="." unique_id=273559226 node_paths=PackedStringArray("terrain_layer")]
+position = Vector2(0, -4)
+limit_left = 0
+limit_top = 0
+limit_right = 1152
+limit_bottom = 648
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
 script = ExtResource("2_0i3tc")
+terrain_layer = NodePath("../HexMap")
 
 [node name="HexMap" parent="." unique_id=1494672603 instance=ExtResource("2_be5h7")]
 texture_filter = 1
@@ -22,19 +26,21 @@ texture_repeat = 1
 [node name="FogLayer" type="TileMapLayer" parent="." unique_id=1772148889]
 tile_set = ExtResource("4_0i3tc")
 
-[node name="VBoxContainer" type="HBoxContainer" parent="." unique_id=622287512]
-offset_left = 983.0
-offset_top = 7.0
-offset_right = 1147.0
-offset_bottom = 54.0
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=125856238]
 
-[node name="Clear" type="Button" parent="VBoxContainer" unique_id=1154527874]
+[node name="VBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=622287512]
+offset_left = 986.0
+offset_top = 4.0
+offset_right = 1150.0
+offset_bottom = 66.0
+
+[node name="Clear" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=1154527874]
 layout_mode = 2
 text = "清除地图"
 
-[node name="Back" type="Button" parent="VBoxContainer" unique_id=941090079]
+[node name="Back" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=941090079]
 layout_mode = 2
 text = "返回主菜单"
 
-[connection signal="pressed" from="VBoxContainer/Clear" to="." method="_on_clear_pressed"]
-[connection signal="pressed" from="VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Clear" to="." method="_on_clear_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Back" to="." method="_on_back_pressed"]

@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://ddbea3me1v4qo"]
+
+[ext_resource type="Texture2D" uid="uid://dr0o2ttfdt4xd" path="res://resource/tileset/cofu.png" id="1_1fhfb"]
+[ext_resource type="Script" uid="uid://fvo0fjf4a2m0" path="res://script/comment/player_tooltip.gd" id="1_bb1rf"]
+
+[node name="PlayerTooltip" type="VBoxContainer" unique_id=1547157417]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -67.5
+offset_right = 223.0
+offset_bottom = 67.5
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_bb1rf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2036174974]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.85
+
+[node name="Player" type="Sprite2D" parent="HBoxContainer" unique_id=451384190]
+position = Vector2(101, -24.5)
+texture = ExtResource("1_1fhfb")
+
+[node name="Title" type="HBoxContainer" parent="." unique_id=1308768515]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="Title" unique_id=2074365567]
+layout_mode = 2
+text = "名称：幽灵船"
+
+[node name="Info" type="VBoxContainer" parent="." unique_id=1144660367]
+layout_mode = 2
+
+[node name="Rank&Level" type="HBoxContainer" parent="Info" unique_id=586741228]
+layout_mode = 2
+
+[node name="Rank" type="Label" parent="Info/Rank&Level" unique_id=1103178443]
+layout_mode = 2
+text = "境界：筑基"
+
+[node name="Level" type="Label" parent="Info/Rank&Level" unique_id=937699505]
+layout_mode = 2
+text = "等级：1阶"
+
+[node name="HP&MP" type="HBoxContainer" parent="Info" unique_id=1645237573]
+layout_mode = 2
+
+[node name="HP" type="Label" parent="Info/HP&MP" unique_id=1904569500]
+layout_mode = 2
+text = "HP：100"
+
+[node name="MP" type="Label" parent="Info/HP&MP" unique_id=936860384]
+layout_mode = 2
+text = "MP:100"
+
+[node name="Defence&Attack" type="HBoxContainer" parent="Info" unique_id=483379690]
+layout_mode = 2
+
+[node name="Defence" type="Label" parent="Info/Defence&Attack" unique_id=127930569]
+layout_mode = 2
+text = "防御：20"
+
+[node name="Attack" type="Label" parent="Info/Defence&Attack" unique_id=1097656485]
+layout_mode = 2
+text = "攻击：5"
+
+[node name="CriticalRate&CriticalDamage" type="HBoxContainer" parent="Info" unique_id=1221927606]
+layout_mode = 2
+
+[node name="CriticalRate" type="Label" parent="Info/CriticalRate&CriticalDamage" unique_id=873342778]
+layout_mode = 2
+text = "暴击率：30%"
+
+[node name="CriticalDamage" type="Label" parent="Info/CriticalRate&CriticalDamage" unique_id=926361960]
+layout_mode = 2
+text = "暴击伤害：200%"

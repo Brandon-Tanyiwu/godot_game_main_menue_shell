@@ -15,6 +15,7 @@ func _ready() -> void:
 	items = _load_csv("res://config/item/item_data.csv")
 	icons = _load_csv("res://config/icon/icon_match.csv")
 	tiles = _load_csv("res://config/tilemap/tiledata.csv")
+	events = _load_csv("res://config/event/event.csv")
 func _load_csv(path:String, delimiter:String=",")-> Dictionary:
 	var result:Dictionary = {}
 	
