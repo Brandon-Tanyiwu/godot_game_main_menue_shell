@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bxprlp3beqn88"
+
+[deps]
+
+files=["res://config/fish/fish.name.translation", "res://config/fish/fish.icon.translation", "res://config/fish/fish.icon.translation", "res://config/fish/fish.price.translation", "res://config/fish/fish.rank.translation", "res://config/fish/fish.min.translation", "res://config/fish/fish.max.translation"]
+
+source_file="res://config/fish/fish.csv"
+dest_files=["res://config/fish/fish.name.translation", "res://config/fish/fish.icon.translation", "res://config/fish/fish.icon.translation", "res://config/fish/fish.price.translation", "res://config/fish/fish.rank.translation", "res://config/fish/fish.min.translation", "res://config/fish/fish.max.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

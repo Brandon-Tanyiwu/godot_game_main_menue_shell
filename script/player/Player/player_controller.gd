@@ -22,11 +22,13 @@ var intent_priority: Dictionary = {
 }
 
 var current_hex:Vector2i = Vector2i.ZERO
+@export var vision_radius = 1
 @export var move_sconds= 1
 
 
 func _ready() -> void:
-	pass
+	await get_tree().process_frame
+	SignalManager.request_reveal_fog.emit(current_hex,vision_radius)
 
 func teleport_to_hex(coord:Vector2i,pixel_pos:Vector2i)->void:
 	current_hex = coord
@@ -35,7 +37,7 @@ func teleport_to_hex(coord:Vector2i,pixel_pos:Vector2i)->void:
 func move_along_path(path: Array, terrain_layer: TileMapLayer) -> void:
 	if path.is_empty():
 		return
-	animatecontroller.play("Run")
+	layer_state_machine._on_transition_request("Run")
 	# 遍历路径中的每一个六边形网格坐标
 	for next_hex in path:
 		# 1. 先把网格坐标换算成地图图层的本地像素
@@ -58,11 +60,13 @@ func move_along_path(path: Array, terrain_layer: TileMapLayer) -> void:
 		
 		# 4. 🌟 实时更新当前网格坐标：每走完一格，就把 current_hex 刷新为当前所在的格子
 		current_hex = next_hex
+		SignalManager.request_reveal_fog.emit(current_hex,vision_radius)
 
 
 
 func play_animation(anim_name:String) -> void:
 	if animatecontroller:
+
 		animatecontroller.play(anim_name)
 		
 

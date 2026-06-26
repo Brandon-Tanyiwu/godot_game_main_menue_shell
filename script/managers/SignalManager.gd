@@ -11,4 +11,6 @@ signal map_generation_completed(world_cells:Dictionary)
 
 signal hex_cell_clicked(coord:Vector2,cell_data:Dictionary)
 
+signal request_reveal_fog(center_coord:Vector2i,radius:int)
+
 signal player_info_change()

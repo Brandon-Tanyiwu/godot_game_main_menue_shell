@@ -8,8 +8,8 @@ extends Node2D
 
 # 假设你在 FogLayer 的 TileSet 里引入了一张纯黑/半透的迷雾切图
 # 纯黑迷雾在 Atlas 中的坐标
-const FOG_BLACK_ATLAS = Vector2i(0, 0) 
-const FOG_SOURCE_ID = 1 # 迷雾 TileSet 的 Source ID
+const FOG_BLACK_ATLAS = Vector2i(0, 2) 
+const FOG_SOURCE_ID = 2 # 迷雾 TileSet 的 Source ID
 const CHARACTER_SCENE = preload("res://scenes/player/player_controller.tscn")
 var players:player
 @export var max_x:int = 25
@@ -17,7 +17,7 @@ var players:player
 
 func _ready() -> void:
 	SignalManager.map_generation_completed.connect(_on_map_data_ready)
-	
+	SignalManager.request_reveal_fog.connect(_on_cell_reveal_fog)
 	var final_map_data: Array[Dictionary] = []
 	# 1. 🔍 核心判断：检查 SaveManager 内是否存在合法的地图存档
 	if _has_valid_save_data():
@@ -35,8 +35,6 @@ func _ready() -> void:
 		_write_to_save(final_map_data)
 	
 	##运行地图生成,完成后发出信号渲染地图
-	HexMapManager.autocomplete_screen_by_scaling_layer(terrain_layer,max_x,max_y)
-	#HexMapManager.autocomplete_screen_with_camera(terrain_layer,max_x,max_y,camera_2d)
 	HexMapManager.generate_hex_map(final_map_data,terrain_layer)
 	_spawn_player(Vector2i(0,0))
 	camera_2d.setup_camera_limits()
@@ -52,10 +50,7 @@ func _spawn_player(spawn_coord:Vector2i)->void:
 
 ## 数据层生成完毕后的核心回调
 func _on_map_data_ready(cells_data: Dictionary) -> void:
-	# 清空迷雾层旧画面
 	fog_layer.clear()
-	
-	# 遍历全图，初始化迷雾表现
 	for coord in cells_data:
 		var cell = cells_data[coord]
 		
@@ -65,15 +60,29 @@ func _on_map_data_ready(cells_data: Dictionary) -> void:
 			
 	print("🌫️ [迷雾系统] 战争迷雾已成功铺满整个世界！")
 
-## 验证测试：点击一个格子，驱散它周围的迷雾
-func _on_cell_clicked(coord: Vector2i, _data: RefCounted) -> void:
+## 驱散目标格子周围的迷雾
+func _on_cell_reveal_fog(coord: Vector2i,radius:int) -> void:
 	print("⚡ [事件响应] 点击了 ", coord, "，正在执行局部战争迷雾驱散...")
-	# 驱散点击的格子本身
+	
+	# 1. 驱散点击的格子本身
 	_reveal_cell(coord)
 	
-	# 驱散点击格子周围一圈的邻居 (利用之前写的方向常量)
-	for dir in HexMapManager.HEX_DIRECTIONS:
-		_reveal_cell(coord + dir)
+	# 2. 🌟 核心修正：利用 Godot 4 内置的 CellNeighbor 枚举安全获取六边形邻居
+	# 尖顶六边形（Vertical）的 6 个标准邻居方向定义如下：
+	if radius>=1:
+		var hex_neighbors = [
+			TileSet.CELL_NEIGHBOR_TOP_LEFT_SIDE,
+			TileSet.CELL_NEIGHBOR_TOP_SIDE,
+			TileSet.CELL_NEIGHBOR_TOP_RIGHT_SIDE,
+			TileSet.CELL_NEIGHBOR_BOTTOM_RIGHT_SIDE,
+			TileSet.CELL_NEIGHBOR_BOTTOM_SIDE,
+			TileSet.CELL_NEIGHBOR_BOTTOM_LEFT_SIDE
+		]
+		
+		for direction in hex_neighbors:
+			# 🌟 使用 fog_layer 自己的内置函数去抓取错位布局下的精准邻居坐标！
+			var neighbor_coord = fog_layer.get_neighbor_cell(coord, direction)
+			_reveal_cell(neighbor_coord)
 
 ## 内部驱散函数
 func _reveal_cell(target_coord: Vector2i) -> void:
