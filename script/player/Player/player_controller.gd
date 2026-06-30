@@ -24,12 +24,20 @@ var intent_priority: Dictionary = {
 var current_hex:Vector2i = Vector2i.ZERO
 @export var vision_radius = 1
 @export var move_sconds= 1
-
+var player_intent = "Idle"
+var move_intent = Vector2(0,0) 
+var pending_path:Array
+var terrain_layer:TileMapLayer
 
 func _ready() -> void:
 	await get_tree().process_frame
 	SignalManager.request_reveal_fog.emit(current_hex,vision_radius)
 
+func set_movement_path(path:Array,terrain_layer:TileMapLayer)->void:
+	pending_path = path
+	terrain_layer = terrain_layer
+	move_intent.x = 1.0
+	
 func teleport_to_hex(coord:Vector2i,pixel_pos:Vector2i)->void:
 	current_hex = coord
 	global_position= pixel_pos

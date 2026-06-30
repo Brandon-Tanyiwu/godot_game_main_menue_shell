@@ -2,13 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://ck4gf4cooett2" path="res://resource/player/Soldier.png" id="1_5tt2p"]
 [ext_resource type="Script" uid="uid://boo2u87md5fab" path="res://script/player/Player/player_controller.gd" id="1_rgtnl"]
-[ext_resource type="PackedScene" path="res://scenes/comment/AttributeComponent.tscn" id="2_5afdu"]
+[ext_resource type="PackedScene" uid="uid://cg1kcyictc72r" path="res://scenes/comment/AttributeComponent.tscn" id="2_5afdu"]
 [ext_resource type="Script" uid="uid://c0sihubt5vpey" path="res://script/player/Global/StateMachine.gd" id="3_ggkdx"]
-[ext_resource type="PackedScene" path="res://scenes/comment/HitComponent.tscn" id="3_m7hbg"]
-[ext_resource type="PackedScene" path="res://scenes/comment/HurtComponent.tscn" id="4_2k8ub"]
+[ext_resource type="PackedScene" uid="uid://dxgpou4pnnjye" path="res://scenes/comment/HitComponent.tscn" id="3_m7hbg"]
+[ext_resource type="PackedScene" uid="uid://cd2vvcpxdkqre" path="res://scenes/comment/HurtComponent.tscn" id="4_2k8ub"]
 [ext_resource type="Script" uid="uid://7bapieycombd" path="res://script/player/Player/common.gd" id="4_wpncg"]
 [ext_resource type="Script" uid="uid://g2jfpkodxbwq" path="res://script/player/Player/attack1.gd" id="5_kqh78"]
-[ext_resource type="PackedScene" path="res://scenes/comment/BuffComponent.tscn" id="5_rkuj1"]
+[ext_resource type="PackedScene" uid="uid://bjjcbm54kw80d" path="res://scenes/comment/BuffComponent.tscn" id="5_rkuj1"]
 [ext_resource type="Script" uid="uid://d10vpsmi2r86s" path="res://script/player/Player/attack2.gd" id="6_cv1cy"]
 [ext_resource type="Script" uid="uid://doysref6e2bq2" path="res://script/player/Player/hurt.gd" id="7_0l0yx"]
 [ext_resource type="Script" uid="uid://cc2xvv4wmw67t" path="res://script/player/Player/ground.gd" id="8_3nb03"]
@@ -365,19 +365,6 @@ size = Vector2(7.5, 13)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4hglj"]
 size = Vector2(14, 21)
 
-[sub_resource type="Animation" id="Animation_yqvp8"]
-resource_name = "Attack1"
-length = 7.0
-
-[sub_resource type="Animation" id="Animation_llt8f"]
-length = 0.001
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_llt8f"]
-_data = {
-&"Attack1": SubResource("Animation_yqvp8"),
-&"RESET": SubResource("Animation_llt8f")
-}
-
 [node name="Player" type="CharacterBody2D" unique_id=870162416]
 script = ExtResource("1_rgtnl")
 move_sconds = 3
@@ -429,6 +416,8 @@ script = ExtResource("12_ii78e")
 
 [node name="AttributeComponent" parent="." unique_id=278877590 instance=ExtResource("2_5afdu")]
 
+[node name="BuffComponent" parent="." unique_id=619152721 instance=ExtResource("5_rkuj1")]
+
 [node name="HitComponent2" parent="." unique_id=524924466 instance=ExtResource("3_m7hbg")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitComponent2" unique_id=1501136586]
@@ -441,9 +430,3 @@ shape = SubResource("RectangleShape2D_jubfu")
 position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_4hglj")
 debug_color = Color(0.85406995, 0.29580313, 0.57062507, 0.41960785)
-
-[node name="BuffComponent" parent="." unique_id=619152721 instance=ExtResource("5_rkuj1")]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=851782808]
-libraries/ = SubResource("AnimationLibrary_llt8f")
-autoplay = &"new_animation"

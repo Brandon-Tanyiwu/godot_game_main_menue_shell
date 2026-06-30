@@ -209,6 +209,8 @@ func autocomplete_screen_by_scaling_layer(tilemap_layer: TileMapLayer, width: in
 	
 	# 💡 注意：因为尖顶六边形的第一列中心点带有一些微调偏移，为了极致的像素对齐，可以加上 start_pos 修正
 	tilemap_layer.position -= start_pos * final_scale
+	
+	
 ## 动态调整相机，使任意大小的地图完美居中并铺满屏幕
 func autocomplete_screen_with_camera(tilemap_layer: TileMapLayer, width: int, height: int, camera: Camera2D):
 	# 1. 获取当前屏幕（视口）的实际像素大小

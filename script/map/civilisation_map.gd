@@ -161,11 +161,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		# 此时传入的 clicked_hex_coord 已经是绝对正确的 10x10 网格坐标了
 		var path_result = HexMapManager.find_path(players.current_hex, clicked_hex_coord)
 		var hex_path = path_result["path"]
-		
 		if not hex_path.is_empty():
+			
 			print("🏃 找到路径，消耗行动力: ", path_result["total_cost"])
-			# 6. 命令角色开始走格子
-			players.move_along_path(hex_path, terrain_layer)
+			# 6.发出格子点击信号
+			SignalManager.hex_cell_clicked.emit(path_result,terrain_layer)
 		else:
 			print("❌ 无法到达该目标点（无路可走）")
 
