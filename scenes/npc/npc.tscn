@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://btyc1yid3sl8"]
+
+[ext_resource type="Texture2D" uid="uid://nflj0iwok3jj" path="res://resource/player/Orc.png" id="1_sspvn"]
+[ext_resource type="Script" uid="uid://bh0pwsra4pwut" path="res://script/npc/npc.gd" id="1_wcgwu"]
+[ext_resource type="Script" uid="uid://c0sihubt5vpey" path="res://script/player/Global/StateMachine.gd" id="2_1owdj"]
+[ext_resource type="Script" uid="uid://7bapieycombd" path="res://script/player/Player/common.gd" id="3_wcgwu"]
+[ext_resource type="Script" uid="uid://g2jfpkodxbwq" path="res://script/player/Player/attack1.gd" id="4_atglx"]
+[ext_resource type="Script" uid="uid://d10vpsmi2r86s" path="res://script/player/Player/attack2.gd" id="5_sjvbi"]
+[ext_resource type="Script" uid="uid://doysref6e2bq2" path="res://script/player/Player/hurt.gd" id="6_fv38m"]
+[ext_resource type="Script" uid="uid://cc2xvv4wmw67t" path="res://script/player/Player/ground.gd" id="7_0ss8d"]
+[ext_resource type="Script" uid="uid://duxp02sa5rh6x" path="res://script/player/Player/idle.gd" id="8_ywuri"]
+[ext_resource type="Script" uid="uid://dtd76mjpecajt" path="res://script/player/Player/run.gd" id="9_hm18a"]
+[ext_resource type="PackedScene" uid="uid://cg1kcyictc72r" path="res://scenes/comment/AttributeComponent.tscn" id="10_l5jvm"]
+[ext_resource type="PackedScene" uid="uid://bjjcbm54kw80d" path="res://scenes/comment/BuffComponent.tscn" id="11_upd6w"]
+[ext_resource type="PackedScene" uid="uid://dxgpou4pnnjye" path="res://scenes/comment/HitComponent.tscn" id="12_iv7p3"]
+[ext_resource type="PackedScene" uid="uid://cd2vvcpxdkqre" path="res://scenes/comment/HurtComponent.tscn" id="13_78hrm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xdauq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdauq"]
+atlas = ExtResource("1_sspvn")
+region = Rect2(44, 42, 22, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tv3ln"]
+size = Vector2(7.5, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5dbi3"]
+size = Vector2(14, 21)
+
+[node name="NPC" type="CharacterBody2D" unique_id=1164535675]
+script = ExtResource("1_wcgwu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1340404759]
+shape = SubResource("CircleShape2D_xdauq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1819073856]
+texture = SubResource("AtlasTexture_xdauq")
+
+[node name="LayerStateMachine" type="Node" parent="." unique_id=2031880020 node_paths=PackedStringArray("initial_state", "common_state")]
+script = ExtResource("2_1owdj")
+initial_state = NodePath("Ground/Idle")
+common_state = NodePath("Ground")
+
+[node name="Common" type="Node" parent="LayerStateMachine" unique_id=1794718797]
+script = ExtResource("3_wcgwu")
+
+[node name="Attack1" type="Node" parent="LayerStateMachine/Common" unique_id=2058297994]
+script = ExtResource("4_atglx")
+
+[node name="Attack2" type="Node" parent="LayerStateMachine/Common" unique_id=1023357006]
+script = ExtResource("5_sjvbi")
+
+[node name="Hurt" type="Node" parent="LayerStateMachine/Common" unique_id=2037536667]
+script = ExtResource("6_fv38m")
+
+[node name="Ground" type="Node" parent="LayerStateMachine" unique_id=189430560]
+script = ExtResource("7_0ss8d")
+
+[node name="Idle" type="Node" parent="LayerStateMachine/Ground" unique_id=375205363]
+script = ExtResource("8_ywuri")
+
+[node name="Run" type="Node" parent="LayerStateMachine/Ground" unique_id=1871369057]
+script = ExtResource("9_hm18a")
+
+[node name="AttributeComponent" parent="." unique_id=278877590 instance=ExtResource("10_l5jvm")]
+
+[node name="BuffComponent" parent="." unique_id=619152721 instance=ExtResource("11_upd6w")]
+
+[node name="HitComponent2" parent="." unique_id=524924466 instance=ExtResource("12_iv7p3")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitComponent2" unique_id=700711440]
+position = Vector2(14, -1)
+shape = SubResource("RectangleShape2D_tv3ln")
+
+[node name="HurtComponent2" parent="." unique_id=858677443 instance=ExtResource("13_78hrm")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtComponent2" unique_id=1759157188]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_5dbi3")
+debug_color = Color(0.85406995, 0.29580313, 0.57062507, 0.41960785)

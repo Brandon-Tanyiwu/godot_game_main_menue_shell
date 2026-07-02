@@ -9,7 +9,7 @@ signal refresh_inventory_ui(type)
 
 signal map_generation_completed(world_cells:Dictionary)
 
-signal hex_cell_clicked(coord:Vector2,terrain_layer: TileMapLayer,cell_data:Dictionary)
+signal hex_cell_clicked(path_data:Dictionary,terrain_layer:TileMapLayer)
 
 signal request_reveal_fog(center_coord:Vector2i,radius:int)
 

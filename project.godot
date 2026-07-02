@@ -12,7 +12,7 @@ config_version=5
 
 config/name="GameMain"
 run/main_scene="uid://cqu1ufwdsb3vm"
-config/features=PackedStringArray("4.6", "GL Compatibility")
+config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]

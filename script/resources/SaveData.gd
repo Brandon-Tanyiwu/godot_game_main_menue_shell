@@ -14,10 +14,9 @@ class_name SaveData
 @export var attack:int = 10
 @export var criticalrate:float = 0.3
 @export var criticaldamage:float = 2.00
-
 @export var player_info:Dictionary = {}
 @export var inventory:Dictionary = {}
-
+@export var player_resource:int = 100
 @export var bag:Dictionary = {}
 
 @export var warehouse:Dictionary = {}

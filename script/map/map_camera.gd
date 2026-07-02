@@ -65,7 +65,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	# ==== 二、 鼠标右键抓取拖拽地图 ====
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		is_dragging = event.pressed
-		
+
 	if event is InputEventMouseMotion and is_dragging:
 		# 💡 极其关键的公式：将鼠标像素位移取反并“除以当前的缩放倍数”
 		# 这样可以保证你在极其贴近地图（放大）或纵览全局（缩小）时，鼠标抓取地图的拖拽感都是 100% 绝对跟手的

@@ -6,10 +6,10 @@ uid="uid://bv82uqewfp4ud"
 
 [deps]
 
-files=["res://config/item/item_data.icon.translation", "res://config/item/item_data.item.translation", "res://config/item/item_data.description.translation", "res://config/item/item_data.rarity.translation", "res://config/item/item_data.base.translation", "res://config/item/item_data.en.translation", "res://config/item/item_data.max.translation", "res://config/item/item_data.attack.translation", "res://config/item/item_data.defence.translation", "res://config/item/item_data.hp.translation", "res://config/item/item_data.en.translation", "res://config/item/item_data.en.translation"]
+files=["res://config/item/item_data.icon.translation", "res://config/item/item_data.item.translation", "res://config/item/item_data.description.translation", "res://config/item/item_data.rarity.translation", "res://config/item/item_data.base.translation", "res://config/item/item_data.max.translation", "res://config/item/item_data.attack.translation", "res://config/item/item_data.defence.translation", "res://config/item/item_data.hp.translation"]
 
 source_file="res://config/item/item_data.csv"
-dest_files=["res://config/item/item_data.icon.translation", "res://config/item/item_data.item.translation", "res://config/item/item_data.description.translation", "res://config/item/item_data.rarity.translation", "res://config/item/item_data.base.translation", "res://config/item/item_data.en.translation", "res://config/item/item_data.max.translation", "res://config/item/item_data.attack.translation", "res://config/item/item_data.defence.translation", "res://config/item/item_data.hp.translation", "res://config/item/item_data.en.translation", "res://config/item/item_data.en.translation"]
+dest_files=["res://config/item/item_data.icon.translation", "res://config/item/item_data.item.translation", "res://config/item/item_data.description.translation", "res://config/item/item_data.rarity.translation", "res://config/item/item_data.base.translation", "res://config/item/item_data.max.translation", "res://config/item/item_data.attack.translation", "res://config/item/item_data.defence.translation", "res://config/item/item_data.hp.translation"]
 
 [params]
 

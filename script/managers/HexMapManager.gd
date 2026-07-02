@@ -20,14 +20,14 @@ class CellData extends RefCounted:
 	var coord: Vector2i         # 轴向坐标 Vector2i(q, r)
 	var terrain_type: String    # 地形名称: "grass", "forest", "mountain", "water"
 	var movement_cost: float = 1.0 # 移动消耗权重
-	var is_passable: bool = true   # 是否可通过
+	var is_passable: bool = true  # 是否可通过
 	var fog_state: FogState = FogState.UNEXPLORED
 	var event_id:int
 	func _init(runtime_data: Dictionary, csv_config: Dictionary) -> void:
 		# 先行注入坐标和事件等运行时变动数据
 		self.coord = runtime_data.get("coord", Vector2i.ZERO)
 		self.event_id = runtime_data.get("event_id", 0)
-		
+		self.is_passable = true if csv_config.passable_info==1 else false
 		# 自动对齐并注入 CSV 的静态配置数据
 		for key in csv_config:
 			if key in self:
@@ -140,7 +140,7 @@ func get_hex_distance(start:Vector2i,end:Vector2i)->int:
 
 ##寻路接口
 func find_path(start:Vector2i,end:Vector2i) -> Dictionary:
-	var result = {"path":[] as Array[Vector2i],"total_cost":0.0}
+	var result = {"path":[] as Array[Dictionary],"total_cost":0.0}
 	
 	if not _coord_to_id.has(start) or not _coord_to_id.has(end):
 		return result
@@ -153,7 +153,7 @@ func find_path(start:Vector2i,end:Vector2i) -> Dictionary:
 		return result
 	for id in id_path:
 		var coord = _id_to_coord[id]
-		result["path"].append(coord)
+		result["path"].append({coord:world_cells[coord]["movement_cost"]})
 		if id != start_id:
 			result["total_cost" ] += world_cells[coord].movement_cost
 	return	 result
