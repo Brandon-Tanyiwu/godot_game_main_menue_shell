@@ -5,9 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://1jw43s6gwmu5" path="res://scenes/map/hex_map.tscn" id="2_be5h7"]
 [ext_resource type="TileSet" uid="uid://cx5n816g37pm7" path="res://assets/TileMap.tres" id="4_0i3tc"]
 [ext_resource type="Script" uid="uid://ch4wge07qm0b" path="res://script/map/fog_layer.gd" id="5_qqdlr"]
+[ext_resource type="Script" uid="uid://53l2eglac2oo" path="res://script/map/player_input_control.gd" id="6_3lu6v"]
 
 [node name="CivilisationMap" type="Node2D" unique_id=1945724539]
 script = ExtResource("1_870hy")
+max_y = 10
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=273559226 node_paths=PackedStringArray("terrain_layer")]
 position = Vector2(0, -4)
@@ -25,6 +27,7 @@ texture_filter = 1
 texture_repeat = 1
 
 [node name="FogLayer" type="TileMapLayer" parent="." unique_id=1772148889]
+visible = false
 tile_set = ExtResource("4_0i3tc")
 script = ExtResource("5_qqdlr")
 
@@ -46,5 +49,26 @@ text = "清除地图"
 layout_mode = 2
 text = "返回主菜单"
 
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=970677851]
+offset_left = 5.0
+offset_top = 586.0
+offset_right = 497.0
+offset_bottom = 635.0
+
+[node name="Move" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=1664259504]
+layout_mode = 2
+text = "移动"
+
+[node name="NextTurn" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=1696120385]
+layout_mode = 2
+text = "回合结束"
+
+[node name="PlayerInputControl" type="Node2D" parent="." unique_id=135645199 node_paths=PackedStringArray("terrain_layer", "game_map")]
+script = ExtResource("6_3lu6v")
+terrain_layer = NodePath("../HexMap")
+game_map = NodePath("..")
+
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Clear" to="." method="_on_clear_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Move" to="PlayerInputControl" method="_on_move_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/NextTurn" to="PlayerInputControl" method="_on_next_turn_pressed"]

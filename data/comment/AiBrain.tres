@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="AIBrain" format=3 uid="uid://c4as6a635hc5v"]
+
+[ext_resource type="Script" uid="uid://cgdvuabci8q3n" path="res://script/ai/npc_ai.gd" id="1_syy5i"]
+
+[resource]
+script = ExtResource("1_syy5i")

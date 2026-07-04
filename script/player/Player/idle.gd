@@ -3,4 +3,4 @@ extends State
 class_name IdleState
 func enter(_params: Dictionary = {}) -> void:
 	if context:
-		context.play_animation("Idle")
+		context.animatecontroller.play("Idle")

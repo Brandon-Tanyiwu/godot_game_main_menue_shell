@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://la0k3qtt7m5i"
+
+[deps]
+
+files=["res://config/AI/NPCAI.move.translation", "res://config/AI/NPCAI.hunter.translation", "res://config/AI/NPCAI.is.translation", "res://config/AI/NPCAI.escape.translation", "res://config/AI/NPCAI.flee.translation", "res://config/AI/NPCAI.buffer.translation", "res://config/AI/NPCAI.phase.translation", "res://config/AI/NPCAI.special.translation"]
+
+source_file="res://config/AI/NPCAI.csv"
+dest_files=["res://config/AI/NPCAI.move.translation", "res://config/AI/NPCAI.hunter.translation", "res://config/AI/NPCAI.is.translation", "res://config/AI/NPCAI.escape.translation", "res://config/AI/NPCAI.flee.translation", "res://config/AI/NPCAI.buffer.translation", "res://config/AI/NPCAI.phase.translation", "res://config/AI/NPCAI.special.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

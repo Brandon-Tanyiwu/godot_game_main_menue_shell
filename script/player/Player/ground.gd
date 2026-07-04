@@ -21,7 +21,11 @@ func physics_update(delta: float) -> void:
 		#context.velocity.x = direction * context.move_speed
 		#context.move_and_slide()
 	#策略游戏
+
 	var direction : Vector2 = context.move_intent
 	if direction.x>0:
 		_current_intent="Run"
-		request_transition(_current_intent)
+		#request_transition(_current_intent)
+	else:
+		_current_intent="Idle"
+	request_transition(_current_intent)

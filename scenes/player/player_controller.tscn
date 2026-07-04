@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dg7divhd8w0pe"]
 
 [ext_resource type="Texture2D" uid="uid://ck4gf4cooett2" path="res://resource/player/Soldier.png" id="1_5tt2p"]
-[ext_resource type="Script" uid="uid://boo2u87md5fab" path="res://script/player/Player/player_controller.gd" id="1_rgtnl"]
+[ext_resource type="Script" uid="uid://boo2u87md5fab" path="res://script/player/Player/player.gd" id="1_rgtnl"]
 [ext_resource type="PackedScene" uid="uid://cg1kcyictc72r" path="res://scenes/comment/AttributeComponent.tscn" id="2_5afdu"]
 [ext_resource type="Script" uid="uid://c0sihubt5vpey" path="res://script/player/Global/StateMachine.gd" id="3_ggkdx"]
 [ext_resource type="PackedScene" uid="uid://dxgpou4pnnjye" path="res://scenes/comment/HitComponent.tscn" id="3_m7hbg"]
@@ -17,8 +17,7 @@
 [ext_resource type="Script" uid="uid://bevlorq1ui0io" path="res://script/player/Global/AnimationController.gd" id="11_oal2v"]
 [ext_resource type="Script" uid="uid://dcxvrt7o0cqem" path="res://script/player/Global/InputHandler.gd" id="12_ii78e"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fohr0"]
-size = Vector2(7.25, 18.75)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xdauq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ers80"]
 atlas = ExtResource("1_5tt2p")
@@ -365,14 +364,24 @@ size = Vector2(7.5, 13)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4hglj"]
 size = Vector2(14, 21)
 
-[node name="Player" type="CharacterBody2D" unique_id=870162416]
+[sub_resource type="CircleShape2D" id="CircleShape2D_xdauq"]
+
+[node name="Player" type="CharacterBody2D" unique_id=870162416 node_paths=PackedStringArray("animatecontroller", "input_handler", "layer_state_machine", "collision_shape_2d") groups=["Player"]]
+top_level = true
+y_sort_enabled = true
 script = ExtResource("1_rgtnl")
+animatecontroller = NodePath("Animatecontroller")
+input_handler = NodePath("InputHandler")
+layer_state_machine = NodePath("LayerStateMachine")
+collision_shape_2d = NodePath("CollisionShape2D")
 vision_radius = 3
 move_sconds = 0.5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1895329718]
+[node name="CollisionShape2D" type="Area2D" parent="." unique_id=86181469]
 position = Vector2(0, -9)
-shape = SubResource("RectangleShape2D_fohr0")
+
+[node name="PlayerBody" type="CollisionShape2D" parent="CollisionShape2D" unique_id=898487970]
+shape = SubResource("RectangleShape2D_xdauq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=264598715]
 texture_filter = 1
@@ -409,8 +418,9 @@ script = ExtResource("9_aoka8")
 [node name="Run" type="Node" parent="LayerStateMachine/Ground" unique_id=1177098500]
 script = ExtResource("10_2xfig")
 
-[node name="Animatecontroller" type="Node" parent="." unique_id=607700811]
+[node name="Animatecontroller" type="Node" parent="." unique_id=607700811 node_paths=PackedStringArray("animated_sprite_2d")]
 script = ExtResource("11_oal2v")
+animated_sprite_2d = NodePath("../AnimatedSprite2D")
 
 [node name="InputHandler" type="Node" parent="." unique_id=1932893722]
 script = ExtResource("12_ii78e")
@@ -431,3 +441,9 @@ shape = SubResource("RectangleShape2D_jubfu")
 position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_4hglj")
 debug_color = Color(0.85406995, 0.29580313, 0.57062507, 0.41960785)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=308787823]
+position = Vector2(-1, -10)
+shape = SubResource("CircleShape2D_xdauq")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

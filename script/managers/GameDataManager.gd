@@ -10,12 +10,14 @@ var skills:Dictionary = {}
 var icons:Dictionary = {}
 var tiles:Dictionary = {}
 var events:Dictionary = {}
+var aibrains:Dictionary={}
 func _ready() -> void:
 	print("load csv data")
 	items = _load_csv("res://config/item/item_data.csv")
 	icons = _load_csv("res://config/icon/icon_match.csv")
 	tiles = _load_csv("res://config/tilemap/tiledata.csv")
 	events = _load_csv("res://config/event/event.csv")
+	aibrains = _load_csv("res://config/AI/NPCAI.csv")
 func _load_csv(path:String, delimiter:String=",")-> Dictionary:
 	var result:Dictionary = {}
 	

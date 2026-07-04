@@ -8,9 +8,11 @@ extends Node2D
 
 
 const CHARACTER_SCENE = preload("res://scenes/player/player_controller.tscn")
-var players:player
+const NPC_SCENE = preload("res://scenes/npc/npc.tscn")
+var unit
 @export var max_x:int = 25
 @export var max_y:int = 25
+var map_unit:Dictionary = {}
 
 func _ready() -> void:
 
@@ -32,47 +34,92 @@ func _ready() -> void:
 	
 	##运行地图生成,完成后发出信号渲染地图
 	HexMapManager.generate_hex_map(final_map_data,terrain_layer)
-	_spawn_player(Vector2i(0,0))
+	_spawn_player(Vector2i(0,0),CHARACTER_SCENE)
+	_spawn_player(Vector2i(5,5),NPC_SCENE)
 	camera_2d.setup_camera_limits()
+	
 
-func _spawn_player(spawn_coord:Vector2i)->void:
-	players=CHARACTER_SCENE.instantiate()
-	add_child(players)
+func _spawn_player(spawn_coord:Vector2i,scene)->void:
+	unit=scene.instantiate()
+	add_child(unit)
 	var spawn_piexl = terrain_layer.map_to_local(spawn_coord)
-	players.global_position = terrain_layer.to_global(spawn_piexl)
+	register_unit(spawn_coord,unit)
+	unit.current_hex = spawn_coord
+	unit.global_position = terrain_layer.to_global(spawn_piexl)
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	# 当玩家在地图上点击鼠标左键时
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		# 🌟 修正：确保对象名字和下面一致（防止因变量名笔误导致直接 return）
-		if players == null: return
-		
-		# 1. 获取鼠标在屏幕/世界中的【全局】像素位置
-		var global_mouse_pos = get_global_mouse_position()
-		
-		# 2. 🌟 核心修正：利用 to_local 将全局坐标转换为 terrain_layer 的【本地】像素坐标
-		# 这一步会自动把地图的 position 偏移、scale 缩放全部计算进去，实现 100% 精准点击！
-		var local_mouse_pos = terrain_layer.to_local(global_mouse_pos)
-		
-		# 3. 把【本地】像素点反向换算成六边形网格坐标
-		var clicked_hex_coord = terrain_layer.local_to_map(local_mouse_pos)
-		_ligal_hex_cell(players.current_hex,clicked_hex_coord,players)
 
 ##校验目标合法，计算路径并发起对目标地图格的信号
-func _ligal_hex_cell(current_hex:Vector2i,target_hex:Vector2i,object)->void:
+func _ligal_hex_cell(current_hex:Vector2i,target_hex:Vector2i,object)->Dictionary:
 	if not HexMapManager.world_cells.has(target_hex):
-		return
+		return {}
 	if not HexMapManager.world_cells[target_hex].is_passable:
 		print("target can't pass")
-		return
+		return {}
 	var path_result = HexMapManager.find_path(current_hex,target_hex)
 	var hex_path = path_result["path"]
 	if not hex_path.is_empty() and path_result["total_cost"]<=object.current_resource:
-		SignalManager.hex_cell_clicked.emit(path_result,terrain_layer)
+		#SignalManager.hex_cell_clicked.emit(path_result,terrain_layer)
+		path_result["terrain_layer"]=terrain_layer
+		return path_result
 	else:
-		return
+		return {}
 
+##返回可同行的所有位置
+func get_cell_neighbors(coord,radius,ap)->Dictionary:
+	var hex_neighbors = [
+		TileSet.CELL_NEIGHBOR_TOP_LEFT_SIDE,
+		TileSet.CELL_NEIGHBOR_TOP_SIDE,
+		TileSet.CELL_NEIGHBOR_TOP_RIGHT_SIDE,
+		TileSet.CELL_NEIGHBOR_BOTTOM_RIGHT_SIDE,
+		TileSet.CELL_NEIGHBOR_BOTTOM_SIDE,
+		TileSet.CELL_NEIGHBOR_BOTTOM_LEFT_SIDE
+	]
+	var visited: Dictionary = { coord: true }
+	# 当前层（从中心点开始扩展）
+	var current_layer: Array[Vector2i] = [coord]
+	# 3. 核心：根据半径层层向外广播扩展
+	for r in range(radius):
+		var next_layer: Array[Vector2i] = []
+		# 遍历当前外沿的每一个格子，把它们的邻居抓出来作为下一层
+		for cell in current_layer:
+			for direction in hex_neighbors:
+				var neighbor = terrain_layer.get_neighbor_cell(cell, direction)
+				var total_ap = HexMapManager.find_path(coord,neighbor)["total_cost"]
+				
+				if HexMapManager.world_cells.has(neighbor) and not visited.has(neighbor) and HexMapManager.world_cells[neighbor].is_passable and total_ap<ap:
+					visited[neighbor] = true
+					next_layer.append(neighbor)
+					
+		# 将下一层赋值给当前层，进入下一个半径循环
+		current_layer = next_layer
+
+	visited.erase(coord)
+	return visited
+
+##获取方块上的单位节点
+func get_unit_at_tile(coord):
+	
+	if map_unit.has(coord):
+		if is_instance_valid(map_unit[coord]):
+			print("select unit on:",coord)
+			return	map_unit[coord]
+	return null
+		
+func register_unit(coord:Vector2i,unit:Node)->void:
+	map_unit[coord]=unit
+
+func unregister_unit(coord:Vector2i,unit:Node)->void:
+	if map_unit.has(coord):
+		if map_unit[coord]==unit:
+			map_unit.erase(coord)
+
+func update_unit_hex(new_coord:Vector2i,unit:Node)->void:
+	for coord in map_unit.keys():
+		if map_unit[coord]== unit:
+			map_unit[coord].erase(coord)
+			break
+	map_unit[new_coord]=unit
 
 ##缓存读取函数
 func _has_valid_save_data()->bool:

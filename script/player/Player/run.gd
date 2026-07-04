@@ -4,16 +4,16 @@ class_name Run
 var speed: float = 300.0
 
 func _ready() -> void:
-	SignalManager.hex_cell_clicked.connect(move_along_path)
+	pass
 func enter(_params: Dictionary = {}) -> void:
-	
+	move_along_path(context.pending_path,context.terrain_layer)
 	if context:
-		context.play_animation("Run")
+		context.animatecontroller.play("Run")
 
 
 func exit() -> void:
 	if context:
-		context.stop_animation()
+		context.animatecontroller.stop()
 
 
 func move_along_path(path_data:Dictionary,terrain_layer) -> void:
@@ -50,4 +50,6 @@ func move_along_path(path_data:Dictionary,terrain_layer) -> void:
 		
 		# 4. 🌟 实时更新当前网格坐标：每走完一格，就把 current_hex 刷新为当前所在的格子
 		context.current_hex = hex_coord
+		SignalManager.move_completed.emit(hex_coord,self)
 		SignalManager.request_reveal_fog.emit(context.current_hex,context.vision_radius)
+	context.move_intent.x=0
