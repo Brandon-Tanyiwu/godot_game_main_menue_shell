@@ -101,7 +101,6 @@ layout_mode = 2
 text = "返回主界面"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=967698202]
-layout_direction = 3
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -110,6 +109,7 @@ anchor_bottom = 1.0
 offset_top = -31.0
 grow_horizontal = 2
 grow_vertical = 0
+layout_direction = 3
 
 [node name="WareHouseButton" type="Button" parent="HBoxContainer" unique_id=286482039]
 layout_mode = 2
@@ -199,6 +199,14 @@ offset_left = 1038.0
 offset_top = 25.0
 offset_right = 1148.0
 offset_bottom = 93.0
+
+[node name="PanelContainer" type="HBoxContainer" parent="." unique_id=1959161796]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 20.0
+offset_right = 1147.0
+offset_bottom = 642.0
+mouse_filter = 2
 
 [connection signal="pressed" from="RightMenu/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="RightMenu/StageButton" to="." method="_on_stage_button_pressed"]

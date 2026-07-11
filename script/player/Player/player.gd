@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends UnitBase
 class_name player
 @export var animatecontroller: AnimateController 
 @export var input_handler: InputHandler 
@@ -13,24 +13,8 @@ class_name player
 @export var double_jump_gravity = -400
 @export var double_jump_force = 150
 @export var max_fall_speed = 500
-@export var current_resource = 100
-var intent_priority: Dictionary = {
-	"Death":1001,
-	"Hurt":1000,
-	"Attack1":999,
-	"Attack2":998,
-	"Run":2,
-	"Idle":1,
-}
-
-var current_hex:Vector2i = Vector2i.ZERO
-@export var vision_radius = 1
-@export var move_sconds= 1.0
 var player_intent = "Idle"
-var move_intent = Vector2(0,0) 
-var pending_path:Dictionary
-var terrain_layer:TileMapLayer
-@export var attack:int = 1
+@export var attack:int = 50
 func _ready() -> void:
 	await get_tree().process_frame
 	SignalManager.request_reveal_fog.emit(current_hex,vision_radius)
@@ -61,12 +45,3 @@ func is_attack2_pressed() -> bool:
 
 func get_input_direction() -> Vector2:
 	return input_handler.input_direction
-
-
-func _on_player_body_click(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
-		print(self," 被点击")
-		SignalManager.unit_selected.emit(self)
-		#viewport.set_input_handle()
-	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
-		SignalManager.unit_deselected.emit()

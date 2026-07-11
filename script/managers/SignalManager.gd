@@ -29,4 +29,17 @@ signal tile_inspected()
 
 signal move_completed(hex_coord:Vector2i,unit:Node)
 
+signal unit_death()
+
 signal npc_turn()
+
+signal map_cal_completed()
+signal npc_generation_completed(spawn_list:Array)
+
+# ================== 新增信号 ==================
+# 当在地图目标单位上释放/拖放道具时触发
+signal use_item_on_unit(user: Node, target: Node, item_data: Dictionary)
+# 当在地图目标单位上释放技能时触发
+signal use_skill_on_unit(user: Node, target: Node, skill_data: Dictionary)
+# 当玩家触发对特定单位的攻击时触发
+signal player_attack_triggered(attacker: Node, target: Node)

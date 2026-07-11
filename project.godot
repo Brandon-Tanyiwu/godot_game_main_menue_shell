@@ -26,6 +26,12 @@ ShopRefreshManager="*uid://x8nlcyqwo63i"
 SignalManager="*uid://d2ilvgvcrloaw"
 ItemTransitionManager="*uid://b3at8ugb0vv0d"
 HexMapManager="*uid://b7b2n8n3cs2k5"
+NpcFactory="*uid://d11646s8dhjbu"
+
+[debug]
+
+gdscript/warnings/unused_parameter=0
+gdscript/warnings/unused_signal=0
 
 [editor]
 

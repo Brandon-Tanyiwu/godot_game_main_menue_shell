@@ -7,15 +7,18 @@ extends Node2D
 
 
 
-const CHARACTER_SCENE = preload("res://scenes/player/player_controller.tscn")
+const CHARACTER_SCENE = preload("res://scenes/player/player.tscn")
 const NPC_SCENE = preload("res://scenes/npc/npc.tscn")
 var unit
 @export var max_x:int = 25
 @export var max_y:int = 25
 var map_unit:Dictionary = {}
+var game_level:int = 1
 
 func _ready() -> void:
-
+	var random_seed = randi() 
+	SignalManager.npc_generation_completed.connect(_on_factory_npc_generation_completed)
+	SignalManager.move_completed.connect(update_unit_hex)
 	var final_map_data: Array[Dictionary] = []
 	# 1. 🔍 核心判断：检查 SaveManager 内是否存在合法的地图存档
 	if _has_valid_save_data():
@@ -24,9 +27,9 @@ func _ready() -> void:
 
 	else:
 		print("🎲 [地图加载] 存档地图信息为空，正在重新生成全新的随机肉鸽关卡...")
-		var random_seed = randi() 
+		
 		# 调用上一轮写好的权重生成器
-		final_map_data = HexMapManager.create_random_map(max_x,max_y,random_seed)
+		final_map_data = HexMapManager.create_random_map(max_x,max_y,random_seed,game_level)
 		
 		
 		# 🌟 自动把刚生成的新地图写进 SaveManager 的缓存中，时刻准备着被存盘
@@ -34,19 +37,33 @@ func _ready() -> void:
 	
 	##运行地图生成,完成后发出信号渲染地图
 	HexMapManager.generate_hex_map(final_map_data,terrain_layer)
+	NpcFactory.NPC_Create(random_seed,game_level)
+	
 	_spawn_player(Vector2i(0,0),CHARACTER_SCENE)
 	_spawn_player(Vector2i(5,5),NPC_SCENE)
+	
 	camera_2d.setup_camera_limits()
 	
 
-func _spawn_player(spawn_coord:Vector2i,scene)->void:
+func _spawn_player(spawn_coord:Vector2i,scene,_id:int = 1,_items:Array=[])->void:
 	unit=scene.instantiate()
-	add_child(unit)
 	var spawn_piexl = terrain_layer.map_to_local(spawn_coord)
 	register_unit(spawn_coord,unit)
 	unit.current_hex = spawn_coord
+	if "current_bag_data" in unit:
+		unit.current_bag_data=_items
 	unit.global_position = terrain_layer.to_global(spawn_piexl)
+	add_child(unit)
 
+func _on_factory_npc_generation_completed(spawn_list:Array)->void:
+	print("start insert npc")
+	for spawn in spawn_list:
+		
+		var id = spawn["id"]
+		var type = spawn["type"]
+		var coord = spawn["coord"]
+		var items = spawn["reward"]
+		_spawn_player(coord,NPC_SCENE,id,items)
 
 
 ##校验目标合法，计算路径并发起对目标地图格的信号
@@ -106,20 +123,20 @@ func get_unit_at_tile(coord):
 			return	map_unit[coord]
 	return null
 		
-func register_unit(coord:Vector2i,unit:Node)->void:
-	map_unit[coord]=unit
+func register_unit(coord:Vector2i,_unit:Node)->void:
+	map_unit[coord]=_unit
 
-func unregister_unit(coord:Vector2i,unit:Node)->void:
+func unregister_unit(coord:Vector2i,_unit:Node)->void:
 	if map_unit.has(coord):
-		if map_unit[coord]==unit:
+		if map_unit[coord]==_unit:
 			map_unit.erase(coord)
 
-func update_unit_hex(new_coord:Vector2i,unit:Node)->void:
+func update_unit_hex(new_coord:Vector2i,_unit:Node)->void:
 	for coord in map_unit.keys():
-		if map_unit[coord]== unit:
+		if map_unit[coord]== _unit:
 			map_unit[coord].erase(coord)
 			break
-	map_unit[new_coord]=unit
+	map_unit[new_coord]=_unit
 
 ##缓存读取函数
 func _has_valid_save_data()->bool:

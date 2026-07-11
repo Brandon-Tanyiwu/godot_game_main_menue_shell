@@ -7,7 +7,7 @@ class_name ItemData
 
 @export var icon:Texture2D
 @export var rarity:int = 0
-@export var item_id:int
+@export var id:int
 @export var base_price:int = 100
 @export var price:int = 0
 @export var extra:Dictionary = {}

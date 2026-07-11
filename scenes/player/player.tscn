@@ -284,7 +284,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4d3rl")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"Death",
 "speed": 5.0
 }, {
@@ -301,7 +301,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_77dd7")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"Hurt",
 "speed": 5.0
 }, {
@@ -388,14 +388,13 @@ texture_filter = 1
 position = Vector2(-1, -9)
 scale = Vector2(1.3124999, 1.3124999)
 sprite_frames = SubResource("SpriteFrames_4j0ba")
-animation = &"Run"
+animation = &"Hurt"
 autoplay = "Idle"
-frame_progress = 0.8191209
 
 [node name="LayerStateMachine" type="Node" parent="." unique_id=987445972 node_paths=PackedStringArray("initial_state", "common_state")]
 script = ExtResource("3_ggkdx")
 initial_state = NodePath("Ground/Idle")
-common_state = NodePath("Ground")
+common_state = NodePath("Common")
 
 [node name="Common" type="Node" parent="LayerStateMachine" unique_id=1860635622]
 script = ExtResource("4_wpncg")

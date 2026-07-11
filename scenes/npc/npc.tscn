@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://d10vpsmi2r86s" path="res://script/player/Player/attack2.gd" id="5_sjvbi"]
 [ext_resource type="Script" uid="uid://doysref6e2bq2" path="res://script/player/Player/hurt.gd" id="6_fv38m"]
 [ext_resource type="Script" uid="uid://cc2xvv4wmw67t" path="res://script/player/Player/ground.gd" id="7_0ss8d"]
+[ext_resource type="Script" uid="uid://c66iaj5pmttby" path="res://script/player/Player/death.gd" id="8_sjvbi"]
 [ext_resource type="Script" uid="uid://duxp02sa5rh6x" path="res://script/player/Player/idle.gd" id="8_ywuri"]
 [ext_resource type="Script" uid="uid://dtd76mjpecajt" path="res://script/player/Player/run.gd" id="9_hm18a"]
 [ext_resource type="PackedScene" uid="uid://cg1kcyictc72r" path="res://scenes/comment/AttributeComponent.tscn" id="10_l5jvm"]
@@ -15,8 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://dxgpou4pnnjye" path="res://scenes/comment/HitComponent.tscn" id="12_iv7p3"]
 [ext_resource type="PackedScene" uid="uid://cd2vvcpxdkqre" path="res://scenes/comment/HurtComponent.tscn" id="13_78hrm"]
 [ext_resource type="Script" uid="uid://bevlorq1ui0io" path="res://script/player/Global/AnimationController.gd" id="15_atglx"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_xdauq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wcgwu"]
 atlas = ExtResource("1_sspvn")
@@ -128,8 +127,8 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0ss8d")
 }],
-"loop": 1,
-"name": &"Die",
+"loop": 0,
+"name": &"Death",
 "speed": 5.0
 }, {
 "frames": [{
@@ -145,7 +144,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_upd6w")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"Hurt",
 "speed": 5.0
 }, {
@@ -208,22 +207,42 @@ size = Vector2(7.5, 13)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5dbi3"]
 size = Vector2(14, 21)
 
-[node name="NPC" type="CharacterBody2D" unique_id=1164535675 node_paths=PackedStringArray("animated_sprite_2d", "animatecontroller")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xdauq"]
+size = Vector2(14, 21)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gdq3g"]
+
+[node name="NPC" type="CharacterBody2D" unique_id=1164535675 node_paths=PackedStringArray("animated_sprite_2d", "animatecontroller", "collision_shape_2d")]
 script = ExtResource("1_wcgwu")
 animated_sprite_2d = NodePath("AnimatedSprite2D")
 animatecontroller = NodePath("Animatecontroller")
+collision_shape_2d = NodePath("Area2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1340404759]
-shape = SubResource("CircleShape2D_xdauq")
+[node name="Name" type="Label" parent="." unique_id=1401061518]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -8.0
+offset_top = -15.0
+offset_right = 7.0
+offset_bottom = 8.0
+grow_horizontal = 2
+mouse_filter = 1
+theme_override_font_sizes/font_size = 3
+text = "哥布林"
+horizontal_alignment = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=931776228]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_xdauq")
-animation = &"Die"
+animation = &"Death"
+autoplay = "Idle"
 
 [node name="LayerStateMachine" type="Node" parent="." unique_id=2031880020 node_paths=PackedStringArray("initial_state", "common_state")]
 script = ExtResource("2_1owdj")
 initial_state = NodePath("Ground/Idle")
-common_state = NodePath("Ground")
+common_state = NodePath("Common")
 
 [node name="Common" type="Node" parent="LayerStateMachine" unique_id=1794718797]
 script = ExtResource("3_wcgwu")
@@ -236,6 +255,9 @@ script = ExtResource("5_sjvbi")
 
 [node name="Hurt" type="Node" parent="LayerStateMachine/Common" unique_id=2037536667]
 script = ExtResource("6_fv38m")
+
+[node name="Death" type="Node" parent="LayerStateMachine/Common" unique_id=1470282665]
+script = ExtResource("8_sjvbi")
 
 [node name="Ground" type="Node" parent="LayerStateMachine" unique_id=189430560]
 script = ExtResource("7_0ss8d")
@@ -266,3 +288,12 @@ debug_color = Color(0.85406995, 0.29580313, 0.57062507, 0.41960785)
 [node name="Animatecontroller" type="Node" parent="." unique_id=656877817 node_paths=PackedStringArray("animated_sprite_2d")]
 script = ExtResource("15_atglx")
 animated_sprite_2d = NodePath("../AnimatedSprite2D")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=733654854]
+
+[node name="NPCBody" type="CollisionShape2D" parent="Area2D" unique_id=599265001]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_xdauq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=856067280]
+shape = SubResource("CircleShape2D_gdq3g")

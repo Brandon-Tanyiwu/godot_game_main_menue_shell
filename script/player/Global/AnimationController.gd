@@ -27,6 +27,9 @@ func play(anim_name: String) -> void:
 	else:
 		push_warning("AnimateController: animation '%s' not found" % anim_name)
 
+func set_frame(frame_path):
+	animated_sprite_2d.sprite_frames = load(frame_path)
+
 func set_direction(dir:float) -> void:
 	if not animated_sprite_2d:
 		return

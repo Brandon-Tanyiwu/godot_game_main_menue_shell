@@ -18,7 +18,7 @@ const HEX_DIRECTIONS = [
 class CellData extends RefCounted:
 	var id: int #地形id
 	var coord: Vector2i         # 轴向坐标 Vector2i(q, r)
-	var terrain_type: String    # 地形名称: "grass", "forest", "mountain", "water"
+	var cell_name: String    # 地形名称: "grass", "forest", "mountain", "water"
 	var movement_cost: float = 1.0 # 移动消耗权重
 	var is_passable: bool = true  # 是否可通过
 	var fog_state: FogState = FogState.UNEXPLORED
@@ -42,14 +42,14 @@ func _ready() -> void:
 	map_list = GameDataManager.tiles
 	event_list = GameDataManager.events
 	
-func create_random_map(width:int,height:int,seed_val:int)->Array:
+func create_random_map(width:int,height:int,seed_val:int,game_level)->Array:
 	var noise = FastNoiseLite.new()
 	noise.seed = seed_val
 	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
 	noise.frequency = 0.06
 	var cell_index:int = 0
 	for q in range(width):
-		var q_offset = q >> 1
+		#var q_offset = q >> 1
 		#for r in range(-q_offset,height-q_offset): 
 		for r in range(height):
 			cell_index +=1 

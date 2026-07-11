@@ -28,5 +28,5 @@ func take_hit(hit_data):
 	})
 
 func calculate_damage(hit_data):
-	var defense = attribute.get_defense()
+	var defense = attribute.get_defence()
 	return max(hit_data.damage - defense, 0)

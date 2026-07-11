@@ -3,6 +3,7 @@ extends Control
 @onready var gold_label = $TopBar/GoldLabel
 @onready var level_label  = $TopBar/LevelLabel
 @onready var player_name = $TopBar/PlayerLabel
+@onready var panel_container: HBoxContainer = $PanelContainer
 
 var current_game:SaveData
 
@@ -24,8 +25,9 @@ func _on_skill_tree_button_pressed() -> void:
 	print("open_skill_tree")
 	
 func _on_inventory_button_pressed() -> void:
-	SceneManager.open_scene("res://scenes/bag&inventory/inventory.tscn")
-	SceneManager.open_scene("res://scenes/bag&inventory/bag.tscn")
+	print("open_inventory")
+	var path_list = ["res://scenes/bag&inventory/bag.tscn","res://scenes/bag&inventory/inventory.tscn"]
+	SceneManager._open_pannel(path_list,panel_container)
 
 func _on_equipment_button_pressed() -> void:
 	print("open_equipment") 
@@ -33,7 +35,7 @@ func _on_equipment_button_pressed() -> void:
 
 func _on_ware_house_button_pressed() -> void:
 	print("open_warehouse")
-	SceneManager.open_scene("res://scenes/bag&inventory/bag.tscn")
+	SceneManager.open_scene("res://scenes/bag&inventory/bag.tscn",panel_container)
 
 
 func _on_back_button_pressed() -> void:
@@ -66,7 +68,7 @@ func _on_game_2_pressed() -> void:
 
 func _on_stage_button_pressed() -> void:
 	print("open user info") ##pass # Replace with function body.
-	SceneManager.open_scene("res://scenes/comment/player_tooltip.tscn")
+	SceneManager.open_scene("res://scenes/comment/player_tooltip.tscn",panel_container)
 
 
 func _on_test_button_pressed() -> void:

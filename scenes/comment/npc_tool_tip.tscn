@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://dm20qrfnb4e5a"]
+
+[ext_resource type="Script" uid="uid://dxqfpvie0s31i" path="res://script/comment/game_npc_tool_tip.gd" id="1_04230"]
+[ext_resource type="Texture2D" uid="uid://nflj0iwok3jj" path="res://resource/player/Orc.png" id="2_pmx1w"]
+[ext_resource type="PackedScene" uid="uid://bflvhxf1ialjn" path="res://scenes/comment/inventory_system.tscn" id="3_j3u8f"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_myobd"]
+atlas = ExtResource("2_pmx1w")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46n1l"]
+atlas = ExtResource("2_pmx1w")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7y6ei"]
+atlas = ExtResource("2_pmx1w")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvjpf"]
+atlas = ExtResource("2_pmx1w")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2ijx"]
+atlas = ExtResource("2_pmx1w")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjr0d"]
+atlas = ExtResource("2_pmx1w")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xdauq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_myobd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46n1l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7y6ei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvjpf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w2ijx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjr0d")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="NPC ToolTip" type="Control" unique_id=100093306]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_04230")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=35029825]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="NPCName" type="Label" parent="VBoxContainer" unique_id=244216037]
+layout_mode = 2
+text = "NPC Name"
+
+[node name="NPC Desc" type="Label" parent="VBoxContainer" unique_id=1636388103]
+layout_mode = 2
+text = "NPC Description"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="VBoxContainer" unique_id=1657107053]
+position = Vector2(-88, 57)
+sprite_frames = SubResource("SpriteFrames_xdauq")
+animation = &"Idle"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer" unique_id=333507457]
+layout_mode = 2
+
+[node name="InventorySystem" parent="VBoxContainer/ScrollContainer" unique_id=1337647449 instance=ExtResource("3_j3u8f")]
+layout_mode = 2

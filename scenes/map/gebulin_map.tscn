@@ -8,7 +8,13 @@
 script = ExtResource("1_ek5xs")
 map_view = NodePath("MapView")
 
-[node name="MapView" parent="." unique_id=1426012215 instance=ExtResource("2_7dvyr")]
+[node name="MapView" parent="." unique_id=1426012215 node_paths=PackedStringArray("node_container", "connection_container") instance=ExtResource("2_7dvyr")]
+node_container = NodePath("../node_container")
+connection_container = NodePath("../connection_container")
 
 [node name="MapNode" parent="." unique_id=1782010555 instance=ExtResource("3_75h61")]
 visible = false
+
+[node name="node_container" type="Node" parent="." unique_id=2106601140]
+
+[node name="connection_container" type="Node" parent="." unique_id=1819752637]

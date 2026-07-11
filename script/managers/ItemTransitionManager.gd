@@ -31,7 +31,6 @@ func add_item(target_type: String, item_id: int, amount: int = 1, extra: Diction
 		var slot_key = str(i)
 		if target_dict.has(slot_key) and target_dict[slot_key] != null:
 			var slot_data = target_dict[slot_key]
-			print(slot_data)
 			if slot_data.get("item_id") == item_id:
 				var current_num = slot_data.get("item_num", 0)
 				if current_num < max_limit:
@@ -49,6 +48,7 @@ func add_item(target_type: String, item_id: int, amount: int = 1, extra: Diction
 	for i in range(grid_size):
 		var slot_key = str(i)
 		if not target_dict.has(slot_key) or target_dict[slot_key] == null:
+			print(max_limit)
 			var amount_to_place = min(remaining_amount, max_limit)
 			
 			target_dict[slot_key] = {

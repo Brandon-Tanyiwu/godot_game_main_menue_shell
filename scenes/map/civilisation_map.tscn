@@ -1,13 +1,15 @@
 [gd_scene format=3 uid="uid://bm4vqjq5qor2c"]
 
-[ext_resource type="Script" uid="uid://b14p0yafd24sc" path="res://script/map/civilisation_map.gd" id="1_870hy"]
+[ext_resource type="Script" uid="uid://b14p0yafd24sc" path="res://script/map/hexgame.gd" id="1_870hy"]
 [ext_resource type="Script" uid="uid://y1jc8p7gqgrj" path="res://script/map/map_camera.gd" id="2_0i3tc"]
 [ext_resource type="PackedScene" uid="uid://1jw43s6gwmu5" path="res://scenes/map/hex_map.tscn" id="2_be5h7"]
 [ext_resource type="TileSet" uid="uid://cx5n816g37pm7" path="res://assets/TileMap.tres" id="4_0i3tc"]
 [ext_resource type="Script" uid="uid://ch4wge07qm0b" path="res://script/map/fog_layer.gd" id="5_qqdlr"]
 [ext_resource type="Script" uid="uid://53l2eglac2oo" path="res://script/map/player_input_control.gd" id="6_3lu6v"]
+[ext_resource type="PackedScene" uid="uid://dm20qrfnb4e5a" path="res://scenes/comment/npc_tool_tip.tscn" id="6_mflj2"]
+[ext_resource type="PackedScene" uid="uid://bi3fwjy6y7h0w" path="res://scenes/comment/reward_tool_tip.tscn" id="7_274fh"]
 
-[node name="CivilisationMap" type="Node2D" unique_id=1945724539]
+[node name="HexGame" type="Node2D" unique_id=1945724539]
 script = ExtResource("1_870hy")
 max_y = 10
 
@@ -34,6 +36,19 @@ script = ExtResource("5_qqdlr")
 [node name="Event" type="TileMapLayer" parent="." unique_id=551515214]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=125856238]
+
+[node name="RewardToolTip" parent="CanvasLayer" unique_id=121778694 instance=ExtResource("7_274fh")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 411.0
+offset_top = 215.0
+offset_right = 756.0
+offset_bottom = 356.0
+grow_horizontal = 1
+grow_vertical = 1
+size_flags_horizontal = 0
+size_flags_vertical = 4
 
 [node name="VBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=622287512]
 offset_left = 986.0
@@ -63,6 +78,19 @@ text = "移动"
 layout_mode = 2
 text = "回合结束"
 
+[node name="Attack" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=176233662]
+layout_mode = 2
+text = "攻击"
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=338987057]
+offset_left = 984.0
+offset_top = 68.0
+offset_right = 1146.0
+offset_bottom = 565.0
+
+[node name="NPC ToolTip" parent="CanvasLayer/PanelContainer" unique_id=100093306 instance=ExtResource("6_mflj2")]
+layout_mode = 2
+
 [node name="PlayerInputControl" type="Node2D" parent="." unique_id=135645199 node_paths=PackedStringArray("terrain_layer", "game_map")]
 script = ExtResource("6_3lu6v")
 terrain_layer = NodePath("../HexMap")
@@ -72,3 +100,4 @@ game_map = NodePath("..")
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Move" to="PlayerInputControl" method="_on_move_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/NextTurn" to="PlayerInputControl" method="_on_next_turn_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Attack" to="PlayerInputControl" method="_on_attack_pressed"]

@@ -150,7 +150,7 @@ func _save_shop_state() -> void:
 	
 	var item_ids: Array[int] = []
 	for item in current_shop_data.items:
-		item_ids.append(item.item_id)
+		item_ids.append(item.id)
 	
 	SaveManager.current_save.shop = {
 		"last_refresh": last_refresh_timestamp,

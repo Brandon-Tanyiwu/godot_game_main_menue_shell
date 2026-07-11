@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bi3fwjy6y7h0w"]
+
+[ext_resource type="Script" uid="uid://br6bpdyei7gup" path="res://script/comment/reward_tool_tip.gd" id="1_01pmt"]
+[ext_resource type="PackedScene" uid="uid://bflvhxf1ialjn" path="res://scenes/comment/inventory_system.tscn" id="2_yw4js"]
+
+[node name="RewardToolTip" type="Control" unique_id=121778694]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_01pmt")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=223726943]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -106.0
+offset_right = 107.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=134021391]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer" unique_id=1814482139]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1674457904]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "获得奖励"
+
+[node name="Close" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1640454405]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "关闭"
+
+[node name="Describe" type="Label" parent="VBoxContainer" unique_id=1716689176]
+layout_mode = 2
+
+[node name="InventorySystem" parent="VBoxContainer" unique_id=1337647449 instance=ExtResource("2_yw4js")]
+layout_mode = 2
+
+[node name="ClaimReward" type="Button" parent="VBoxContainer" unique_id=1331541396]
+layout_mode = 2
+text = "获得全部"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="VBoxContainer/ClaimReward" to="." method="_on_claim_reward_pressed"]

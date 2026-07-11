@@ -5,10 +5,7 @@ class_name ItemSlot
 # 点击槽位时向外发出的信号（用于购买、装备、移库等逻辑）
 signal slot_clicked(index:int,item_data: ItemData)
 
-# 保留你原有的场景节点映射
 
-
-# 💡 建议在你的场景 Panel 下追加一个 Label 叫 AmountLabel，用来给背包/仓库模式显示物品数量
 @onready var amount_label: Label = $VBoxContainer/PriceContainer/AmountLabel
 @onready var border: ColorRect = $Border
 @onready var icon: TextureRect = $VBoxContainer/Icon
@@ -24,6 +21,7 @@ var current_amount: int = 0
 var slot_index:int = -1
 var item_id:int
 var SlotGritType:String
+var extra_data:Dictionary = {}
 func _ready() -> void:
 	# ❗ 关键：确保拦截鼠标事件，否则 _gui_input 和 hover 信号在 Grid 里可能失效
 	mouse_filter = Control.MOUSE_FILTER_STOP 
@@ -37,13 +35,13 @@ func _ready() -> void:
 ## 核心融合方法：兼容 商店、背包、仓库
 ## is_shop_mode 为 true 时显示价格，为 false 时显示数量
 func setup_slot(data: ItemData, amount: int = 1, is_shop_mode: bool = false,other_info:Dictionary={},GridType:String = "default"):
-	
 	if data == null:
 		clear_slot()
 		return	
+	extra_data = other_info
 	item_data = data
 	current_amount = amount
-	item_id = item_data.item_id
+	item_id = item_data.id
 	# 1. 基础通用信息渲染
 	icon.texture = data.icon
 	icon.show()

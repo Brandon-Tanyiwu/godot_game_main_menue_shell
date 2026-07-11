@@ -16,8 +16,8 @@ func _ready() -> void:
 func _on_area_entered(area: Area2D):
 	if not area is HurtComponent:
 		return
-	if area.team == team:
-		return
+	#if area.team == team:
+		#return
 	
 	var direction = (area.global_position - global_position).normalized()
 	

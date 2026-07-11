@@ -10,6 +10,8 @@ var skills:Dictionary = {}
 var icons:Dictionary = {}
 var tiles:Dictionary = {}
 var events:Dictionary = {}
+var npc:Dictionary = {}
+var fish:Dictionary = {}
 var aibrains:Dictionary={}
 func _ready() -> void:
 	print("load csv data")
@@ -18,6 +20,7 @@ func _ready() -> void:
 	tiles = _load_csv("res://config/tilemap/tiledata.csv")
 	events = _load_csv("res://config/event/event.csv")
 	aibrains = _load_csv("res://config/AI/NPCAI.csv")
+	fish = _load_csv("res://config/fish/fish.csv")
 func _load_csv(path:String, delimiter:String=",")-> Dictionary:
 	var result:Dictionary = {}
 	
