@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cy7l5u40quldo"
+
+[deps]
+
+files=["res://config/npc/npc.name.translation", "res://config/npc/npc.group.translation", "res://config/npc/npc.animate.translation", "res://config/npc/npc.hp.translation", "res://config/npc/npc.vp.translation", "res://config/npc/npc.ai.translation", "res://config/npc/npc.dialog.translation", "res://config/npc/npc.reward.translation", "res://config/npc/npc.requirement.translation"]
+
+source_file="res://config/npc/npc.csv"
+dest_files=["res://config/npc/npc.name.translation", "res://config/npc/npc.group.translation", "res://config/npc/npc.animate.translation", "res://config/npc/npc.hp.translation", "res://config/npc/npc.vp.translation", "res://config/npc/npc.ai.translation", "res://config/npc/npc.dialog.translation", "res://config/npc/npc.reward.translation", "res://config/npc/npc.requirement.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

@@ -1,6 +1,8 @@
-﻿id,event_name,food,hp,attack,priority,tooltip
-1,鱼群,20,,,0.3,
-2,浮木,,20,,0.2,
-3,金属矿物,,,20,0.4,
-4,传送,,,,0.1,移动船只到随机位置
-5,陷阱,,-10,,0.15,
+id,event_name,food,hp,attack,priority,tooltip,target_group,event_type
+1,鱼群,20,,,0.3,,All,element_event
+2,浮木,,20,,0.2,,All,split_unit
+3,金属矿物,,,20,0.4,,Player,
+4,传送,,,,0.1,移动船只到随机位置,All,
+5,陷阱,,-10,,0.15,,Player,
+6,回家,,,,0.3,游戏结束,Player,end_game
+999,迷雾,,,,0.1,迷雾扩散开来，ALL,flog

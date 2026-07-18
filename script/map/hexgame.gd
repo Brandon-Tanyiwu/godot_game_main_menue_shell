@@ -1,6 +1,6 @@
 # WorldMapController.gd
 extends Node2D
-
+class_name HexGame
 @onready var terrain_layer: TileMapLayer = $HexMap
 @onready var fog_layer: TileMapLayer = $FogLayer
 @onready var camera_2d: Camera2D = $Camera2D
@@ -10,12 +10,20 @@ extends Node2D
 const CHARACTER_SCENE = preload("res://scenes/player/player.tscn")
 const NPC_SCENE = preload("res://scenes/npc/npc.tscn")
 var unit
-@export var max_x:int = 25
-@export var max_y:int = 25
+@export var max_x:int = 110
+@export var max_y:int = 110
 var map_unit:Dictionary = {}
-var game_level:int = 1
-
+var game_level:int = 2
+var hex_neighbors = [
+		TileSet.CELL_NEIGHBOR_TOP_LEFT_SIDE,
+		TileSet.CELL_NEIGHBOR_TOP_SIDE,
+		TileSet.CELL_NEIGHBOR_TOP_RIGHT_SIDE,
+		TileSet.CELL_NEIGHBOR_BOTTOM_RIGHT_SIDE,
+		TileSet.CELL_NEIGHBOR_BOTTOM_SIDE,
+		TileSet.CELL_NEIGHBOR_BOTTOM_LEFT_SIDE
+	]
 func _ready() -> void:
+	EventManager._setup(self)
 	var random_seed = randi() 
 	SignalManager.npc_generation_completed.connect(_on_factory_npc_generation_completed)
 	SignalManager.move_completed.connect(update_unit_hex)
@@ -29,6 +37,7 @@ func _ready() -> void:
 		print("🎲 [地图加载] 存档地图信息为空，正在重新生成全新的随机肉鸽关卡...")
 		
 		# 调用上一轮写好的权重生成器
+		
 		final_map_data = HexMapManager.create_random_map(max_x,max_y,random_seed,game_level)
 		
 		
@@ -39,31 +48,41 @@ func _ready() -> void:
 	HexMapManager.generate_hex_map(final_map_data,terrain_layer)
 	NpcFactory.NPC_Create(random_seed,game_level)
 	
-	_spawn_player(Vector2i(0,0),CHARACTER_SCENE)
-	_spawn_player(Vector2i(5,5),NPC_SCENE)
+	_spawn_unit(Vector2i(0,0),CHARACTER_SCENE)
+	#_spawn_(Vector2i(5,5),NPC_SCENE)
 	
 	camera_2d.setup_camera_limits()
-	
+func _end_game()->void:
+	SaveManager.delete_map(SaveManager.current_save)
+	SceneManager.change_scene("res://scenes/hub/HubScene.tscn")
 
-func _spawn_player(spawn_coord:Vector2i,scene,_id:int = 1,_items:Array=[])->void:
+func _on_clear_pressed() -> void:
+	_end_game()
+
+func _on_back_pressed() -> void:
+	SceneManager.change_scene("res://scenes/hub/HubScene.tscn")
+	# 获取特定组里最近的实体（如 "pirates", "players"）	
+
+func _spawn_unit(spawn_coord:Vector2i,scene,_id:int = 1,_items:Array=[],unit_config={})->void:
 	unit=scene.instantiate()
+	if scene == NPC_SCENE:
+		unit.init_npc_entity(spawn_coord,unit_config,_items,self)
 	var spawn_piexl = terrain_layer.map_to_local(spawn_coord)
 	register_unit(spawn_coord,unit)
-	unit.current_hex = spawn_coord
-	if "current_bag_data" in unit:
-		unit.current_bag_data=_items
 	unit.global_position = terrain_layer.to_global(spawn_piexl)
 	add_child(unit)
+
+func _remove_unit(unit:Node):
+	if unit:
+		unit.queue_free()
 
 func _on_factory_npc_generation_completed(spawn_list:Array)->void:
 	print("start insert npc")
 	for spawn in spawn_list:
-		
 		var id = spawn["id"]
-		var type = spawn["type"]
 		var coord = spawn["coord"]
 		var items = spawn["reward"]
-		_spawn_player(coord,NPC_SCENE,id,items)
+		_spawn_unit(coord,NPC_SCENE,id,items,spawn["config"])
 
 
 ##校验目标合法，计算路径并发起对目标地图格的信号
@@ -81,17 +100,15 @@ func _ligal_hex_cell(current_hex:Vector2i,target_hex:Vector2i,object)->Dictionar
 		return path_result
 	else:
 		return {}
+func get_randon_neibhor_cell(coord)->Array:
+	var neighbor = []
+	for direction in hex_neighbors:
+		neighbor = terrain_layer.get_neighbor_cell(coord,direction)
+	return	neighbor
 
 ##返回可同行的所有位置
 func get_cell_neighbors(coord,radius,ap)->Dictionary:
-	var hex_neighbors = [
-		TileSet.CELL_NEIGHBOR_TOP_LEFT_SIDE,
-		TileSet.CELL_NEIGHBOR_TOP_SIDE,
-		TileSet.CELL_NEIGHBOR_TOP_RIGHT_SIDE,
-		TileSet.CELL_NEIGHBOR_BOTTOM_RIGHT_SIDE,
-		TileSet.CELL_NEIGHBOR_BOTTOM_SIDE,
-		TileSet.CELL_NEIGHBOR_BOTTOM_LEFT_SIDE
-	]
+
 	var visited: Dictionary = { coord: true }
 	# 当前层（从中心点开始扩展）
 	var current_layer: Array[Vector2i] = [coord]
@@ -134,7 +151,7 @@ func unregister_unit(coord:Vector2i,_unit:Node)->void:
 func update_unit_hex(new_coord:Vector2i,_unit:Node)->void:
 	for coord in map_unit.keys():
 		if map_unit[coord]== _unit:
-			map_unit[coord].erase(coord)
+			map_unit.erase(coord)
 			break
 	map_unit[new_coord]=_unit
 
@@ -167,14 +184,3 @@ func _parse_string_to_vector2i(key:String) ->Vector2i:
 		return Vector2i(int(parts[0]),int(parts[1]))
 	push_error("can't parse vector2i index")
 	return Vector2i.ZERO
-
-
-func _on_clear_pressed() -> void:
-	SaveManager.delete_map(SaveManager.current_save)
-	SceneManager.change_scene("res://scenes/hub/HubScene.tscn")
-
-
-
-
-func _on_back_pressed() -> void:
-	SceneManager.change_scene("res://scenes/hub/HubScene.tscn")

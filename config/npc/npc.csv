@@ -1,0 +1,4 @@
+id,name,group,animate_path,hp,vp,ai_model,dialog,reward,requirement
+1,撤离的渔船,NPC,null,100,5,random,我还有多余的油料，拿鱼跟我换吧,20,"1,2,3"
+2,海域游商,NPC,null,100,10,shop,我是这片海域的行商，买点什么吧,,
+3,巡海守卫,NPC,null,999,20,gurd,你好，需要帮助吗,,

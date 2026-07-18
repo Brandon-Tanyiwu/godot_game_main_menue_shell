@@ -50,6 +50,6 @@ func move_along_path(path_data:Dictionary,terrain_layer) -> void:
 		
 		# 4. 🌟 实时更新当前网格坐标：每走完一格，就把 current_hex 刷新为当前所在的格子
 		context.current_hex = hex_coord
-		SignalManager.move_completed.emit(hex_coord,self)
+		SignalManager.move_completed.emit(hex_coord,context)
 		SignalManager.request_reveal_fog.emit(context.current_hex,context.vision_radius)
 	context.move_intent.x=0

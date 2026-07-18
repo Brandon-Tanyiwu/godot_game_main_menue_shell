@@ -21,6 +21,7 @@ func _ready() -> void:
 	events = _load_csv("res://config/event/event.csv")
 	aibrains = _load_csv("res://config/AI/NPCAI.csv")
 	fish = _load_csv("res://config/fish/fish.csv")
+	npc = _load_csv("res://config/npc/npc.csv")
 func _load_csv(path:String, delimiter:String=",")-> Dictionary:
 	var result:Dictionary = {}
 	

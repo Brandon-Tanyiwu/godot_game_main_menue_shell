@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dxgpou4pnnjye" path="res://scenes/comment/HitComponent.tscn" id="12_iv7p3"]
 [ext_resource type="PackedScene" uid="uid://cd2vvcpxdkqre" path="res://scenes/comment/HurtComponent.tscn" id="13_78hrm"]
 [ext_resource type="Script" uid="uid://bevlorq1ui0io" path="res://script/player/Global/AnimationController.gd" id="15_atglx"]
+[ext_resource type="Script" uid="uid://duytub5ms1vpp" path="res://script/npc/AIBrain.gd" id="17_fv38m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wcgwu"]
 atlas = ExtResource("1_sspvn")
@@ -223,13 +224,12 @@ texture_filter = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -8.0
-offset_top = -15.0
-offset_right = 7.0
-offset_bottom = 8.0
+offset_left = -12.5
+offset_top = -23.0
+offset_right = 11.5
 grow_horizontal = 2
 mouse_filter = 1
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 8
 text = "哥布林"
 horizontal_alignment = 1
 
@@ -297,3 +297,7 @@ shape = SubResource("RectangleShape2D_xdauq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=856067280]
 shape = SubResource("CircleShape2D_gdq3g")
+
+[node name="AIBrain" type="Node" parent="." unique_id=931409150 node_paths=PackedStringArray("host")]
+script = ExtResource("17_fv38m")
+host = NodePath("..")

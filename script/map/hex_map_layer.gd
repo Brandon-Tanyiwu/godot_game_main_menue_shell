@@ -1,4 +1,5 @@
 extends TileMapLayer
+@onready var label: Label = $Label
 
 
 const source_id = 2 
@@ -13,6 +14,7 @@ func _on_data_layer_ready(cells_data:Dictionary)->void:
 		var cell_info = GameDataManager.get_terrain_info(cell.id)
 		#print(cell,"  ",atlas_coord)
 		set_cell(coord,source_id,Vector2i(cell_info["cell_source_x"],cell_info["cell_source_y"]))
+		label.text = str(cell["event_id"])
 	print("layer completed")
 #
 #func _unhandled_input(event: InputEvent) -> void:

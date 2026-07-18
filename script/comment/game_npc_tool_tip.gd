@@ -18,7 +18,7 @@ func _on_show_npc_tooltip(npc_node:Node)->void:
 	if npc_node.is_in_group("Player"):
 		return
 	#animated_sprite_2d.sprite_frames=load(npc_data.get(npc_id)["npc_frame"])
-	var npc_id=npc_node["npc_id"]
+	var npc_id=npc_node["id"]
 	var npc_item = npc_node["current_bag_data"]
 	npc_name.text = npc_node["npcname"]
 	visible = true	

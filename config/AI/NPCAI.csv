@@ -1,4 +1,4 @@
-﻿id,move_strategy,hunter_type,is_guard,escape,flee,buffer,phase_transition,special_anger
+id,move_strategy,hunter_type,is_guard,escape,flee,buffer,phase_transition,special_anger
 1,random,nearest,FALSE,FALSE,,random,,
 2,trace,defence,TRUE,FALSE,,hight,,
 3,random,random,FALSE,TRUE,0.3,normal,,

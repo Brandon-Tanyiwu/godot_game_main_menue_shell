@@ -14,7 +14,6 @@ class_name player
 @export var double_jump_force = 150
 @export var max_fall_speed = 500
 var player_intent = "Idle"
-@export var attack:int = 50
 func _ready() -> void:
 	await get_tree().process_frame
 	SignalManager.request_reveal_fog.emit(current_hex,vision_radius)

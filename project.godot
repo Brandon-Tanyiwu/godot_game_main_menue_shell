@@ -27,6 +27,7 @@ SignalManager="*uid://d2ilvgvcrloaw"
 ItemTransitionManager="*uid://b3at8ugb0vv0d"
 HexMapManager="*uid://b7b2n8n3cs2k5"
 NpcFactory="*uid://d11646s8dhjbu"
+EventManager="*uid://cl2ggmq3gtlcp"
 
 [debug]
 

@@ -6,3 +6,7 @@
 [node name="HexMap" type="TileMapLayer" unique_id=1494672603]
 tile_set = ExtResource("1_eqyvv")
 script = ExtResource("2_51d80")
+
+[node name="Label" type="Label" parent="." unique_id=1938285869]
+offset_right = 40.0
+offset_bottom = 23.0

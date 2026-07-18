@@ -34,6 +34,9 @@ signal unit_death()
 signal npc_turn()
 
 signal map_cal_completed()
+
+signal cell_event_action()
+
 signal npc_generation_completed(spawn_list:Array)
 
 # ================== 新增信号 ==================

@@ -11,7 +11,8 @@
 
 [node name="HexGame" type="Node2D" unique_id=1945724539]
 script = ExtResource("1_870hy")
-max_y = 10
+max_x = 25
+max_y = 25
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=273559226 node_paths=PackedStringArray("terrain_layer")]
 position = Vector2(0, -4)
@@ -34,6 +35,7 @@ tile_set = ExtResource("4_0i3tc")
 script = ExtResource("5_qqdlr")
 
 [node name="Event" type="TileMapLayer" parent="." unique_id=551515214]
+tile_set = ExtResource("4_0i3tc")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=125856238]
 
@@ -81,6 +83,10 @@ text = "回合结束"
 [node name="Attack" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=176233662]
 layout_mode = 2
 text = "攻击"
+
+[node name="EventTest" type="Button" parent="CanvasLayer/HBoxContainer" unique_id=2001260041]
+layout_mode = 2
+text = "事件测试"
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=338987057]
 offset_left = 984.0
